@@ -1,0 +1,41 @@
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { CategoryService } from '../core/data/category.service';
+
+const GRADIENTS: Record<string, string> = {
+  food: 'from-[#fff1e0] via-[#fde3d6] to-[#f9d2d0]',
+  shopping: 'from-[#fdeaf1] via-[#fbe7da] to-[#fff3d6]',
+  beauty: 'from-[#fde7ef] via-[#f8e3f6] to-[#ece4fb]',
+  events: 'from-[#fff4d6] via-[#ffe6c7] to-[#fbd6c4]',
+  services: 'from-[#e3f1fb] via-[#e4f5ef] to-[#f0f7dc]',
+  community: 'from-[#fff0d9] via-[#fde9c8] to-[#fbe3b4]',
+};
+
+/** A business's photo, or a warm category-themed placeholder when it has none. */
+@Component({
+  selector: 'app-cover',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { class: 'block relative overflow-hidden' },
+  template: `
+    @if (src()) {
+      <img [src]="src()" [alt]="alt()" class="h-full w-full object-cover transition duration-700 group-hover:scale-105" [attr.loading]="eager() ? 'eager' : 'lazy'" [attr.fetchpriority]="eager() ? 'high' : null" decoding="async" width="1600" height="900" />
+    } @else {
+      <div class="absolute inset-0 bg-gradient-to-br {{ gradient() }}"></div>
+      <div class="bg-motif absolute inset-0 opacity-70"></div>
+      <div class="absolute inset-0 grid place-items-center">
+        <span class="drop-shadow-sm transition duration-700 group-hover:scale-110 group-hover:-rotate-6" [style.font-size]="iconSize()" aria-hidden="true">{{ icon() }}</span>
+      </div>
+    }
+  `,
+})
+export class CoverComponent {
+  readonly src = input('');
+  readonly alt = input('');
+  readonly category = input('');
+  readonly eager = input(false);
+  readonly iconSize = input('3.5rem');
+
+  private readonly cats = inject(CategoryService);
+  readonly icon = computed(() => this.cats.icon(this.category()));
+  readonly gradient = computed(() => GRADIENTS[this.cats.group(this.category())] ?? GRADIENTS['services']);
+}

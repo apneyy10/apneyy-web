@@ -1,1 +1,192 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand: #a3242f;
+    --brand-ink: #7d1a23;
+    --saffron: #e8871e;
+    --paper: #fbfaf7;
+    --ink: #1c1a17;
+    --ink-2: #4a4640;
+    --ink-3: #59554e;
+    --line: #e8e3da;
+    --sunk: #f2eee7;
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  .apneyy-container {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .apneyy-input {
+    @apply w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-[15px] text-ink placeholder-ink-4 transition focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand/10;
+  }
+
+  .apneyy-select {
+    @apply apneyy-input appearance-none bg-no-repeat pr-9;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2359554e' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.6' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.75rem center;
+    background-size: 1.1rem;
+  }
+
+  .apneyy-label {
+    @apply mb-1.5 block text-sm font-semibold text-ink;
+  }
+
+  .apneyy-error {
+    @apply mt-1.5 text-xs font-medium text-red-700;
+  }
+
+  .apneyy-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-hover focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/25 active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .apneyy-btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-white px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-ink-4/40 hover:bg-sunk focus:outline-none focus-visible:ring-4 focus-visible:ring-brand/20 active:scale-[.98] disabled:opacity-50;
+  }
+
+  .apneyy-btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-ink-2 transition hover:bg-sunk hover:text-ink;
+  }
+
+  .apneyy-card {
+    @apply rounded-2xl border border-line bg-white shadow-card;
+  }
+
+  .apneyy-badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  }
+
+  .apneyy-chip {
+    @apply inline-flex select-none items-center gap-1.5 whitespace-nowrap rounded-full border border-line bg-white px-3.5 py-2 text-sm font-medium text-ink-2 transition hover:border-ink-4/50 hover:text-ink active:scale-[.97];
+  }
+
+  .apneyy-chip[aria-pressed='true'] {
+    @apply border-brand bg-brand-light text-brand-ink;
+  }
+
+  .apneyy-eyebrow {
+    @apply text-xs font-bold uppercase tracking-[.16em] text-saffron-ink;
+  }
+
+  .apneyy-h2 {
+    @apply font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl;
+  }
+
+  .font-display {
+    font-variation-settings: 'SOFT' 50, 'WONK' 0;
+  }
+
+  /* Horizontal scroller used by carousels */
+  .snap-track {
+    @apply flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .snap-track::-webkit-scrollbar {
+    display: none;
+  }
+  .snap-track > * {
+    @apply shrink-0 snap-start;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden rounded-lg bg-sunk;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full animate-[shimmer_1.4s_infinite];
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  }
+}
+
+/* Decorative jaali-style dot pattern */
+.bg-motif {
+  background-image: radial-gradient(rgba(163, 36, 47, 0.16) 1.2px, transparent 1.2px), radial-gradient(rgba(232, 135, 30, 0.14) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+  background-position: 0 0, 11px 11px;
+}
+
+/* Scroll reveal (RevealDirective). Only armed in the browser, so content never hides without JS. */
+.reveal-armed {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal-armed.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Page transitions (View Transitions API, Chrome/Edge/Safari 18) */
+::view-transition-old(root) {
+  animation: 160ms ease-in both vt-fade-out;
+}
+::view-transition-new(root) {
+  animation: 260ms cubic-bezier(0.2, 0.7, 0.2, 1) both vt-fade-in;
+}
+::view-transition-group(business-hero) {
+  animation-duration: 380ms;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-armed {
+    opacity: 1;
+    transform: none;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,17 @@
+# Rebuilds the site every night so owner edits made in the business portal show up.
+# Set the repo secret AMPLIFY_WEBHOOK_URL (Amplify console > App settings > Build settings > Incoming webhooks).
+name: Nightly rebuild
+on:
+  schedule:
+    - cron: '30 8 * * *' # 3:30am US Central
+  workflow_dispatch:
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Amplify build
+        env:
+          WEBHOOK: ${{ secrets.AMPLIFY_WEBHOOK_URL }}
+        run: |
+          if [ -z "$WEBHOOK" ]; then echo "AMPLIFY_WEBHOOK_URL is not set; skipping."; exit 0; fi
+          curl -fsS -X POST -d '{}' -H 'Content-Type: application/json' "$WEBHOOK"
