@@ -1,0 +1,17 @@
+# Build settings for AWS Amplify Hosting (static, prerendered).
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: dist/apneyy-web/browser
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
