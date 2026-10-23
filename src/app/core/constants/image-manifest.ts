@@ -18,6 +18,14 @@ export const IMAGES: Record<string, ImageEntry> = {
     ],
     "alt": "Crispy samosas with green chutney"
   },
+  "cat/sweets_mithai": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "alt": "Samosas with green and tamarind chutney"
+  },
   "cat/bakery_cafe": {
     "widths": [
       480,
@@ -74,6 +82,14 @@ export const IMAGES: Record<string, ImageEntry> = {
     ],
     "alt": "A gold bangle"
   },
+  "cat/pooja_samagri": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "alt": "A kalash with coconut and mango leaves for puja"
+  },
   "cat/books_media": {
     "widths": [
       480,
@@ -81,6 +97,14 @@ export const IMAGES: Record<string, ImageEntry> = {
       1440
     ],
     "alt": "Shelves of books in a bookshop"
+  },
+  "cat/home_decor": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "alt": "A warmly decorated living room"
   },
   "cat/beauty_salon": {
     "widths": [
@@ -98,6 +122,14 @@ export const IMAGES: Record<string, ImageEntry> = {
     ],
     "alt": "Chairs and mirrors in a barber shop"
   },
+  "cat/tailoring": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "alt": "A pin cushion full of sewing pins"
+  },
   "cat/event_planner": {
     "widths": [
       480,
@@ -113,6 +145,14 @@ export const IMAGES: Record<string, ImageEntry> = {
       1440
     ],
     "alt": "A photographer holding a camera"
+  },
+  "cat/videography": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "alt": "A video being edited on a timeline"
   },
   "cat/dj_music": {
     "widths": [
@@ -145,6 +185,14 @@ export const IMAGES: Record<string, ImageEntry> = {
       1440
     ],
     "alt": "An aeroplane wing above the clouds"
+  },
+  "cat/courier_delivery": {
+    "widths": [
+      480,
+      960,
+      1440
+    ],
+    "alt": "Parcels stacked in a shipping warehouse"
   },
   "cat/money_transfer": {
     "widths": [
