@@ -9,7 +9,8 @@
     "unsplash": "1601050690597-df0568f70950"
   },
   "cat/sweets_mithai": {
-    "alt": "A tray of colourful South Asian sweets"
+    "alt": "Samosas with green and tamarind chutney",
+    "unsplash": "1601050690117-94f5f6fa8bd7"
   },
   "cat/bakery_cafe": {
     "alt": "A cup of spiced tea with whole spices",
@@ -43,14 +44,17 @@
     "unsplash": "1611591437281-460bfbe1220a"
   },
   "cat/pooja_samagri": {
-    "alt": "A puja thali with diya, flowers and incense"
+    "alt": "A kalash with coconut and mango leaves for puja",
+    "unsplash": "1606293926075-69a00dbfde81",
+    "position": "top"
   },
   "cat/books_media": {
     "alt": "Shelves of books in a bookshop",
     "unsplash": "1507842217343-583bb7270b66"
   },
   "cat/home_decor": {
-    "alt": "Brass lamps and handcrafted home decor"
+    "alt": "A warmly decorated living room",
+    "unsplash": "1556228453-efd6c1ff04f6"
   },
   "cat/beauty_salon": {
     "alt": "Makeup being applied at a salon",
@@ -64,7 +68,8 @@
     "alt": "Detailed bridal mehndi on hands"
   },
   "cat/tailoring": {
-    "alt": "A tailor stitching fabric on a sewing machine"
+    "alt": "A pin cushion full of sewing pins",
+    "unsplash": "1528578577235-b963df6db908"
   },
   "cat/event_planner": {
     "alt": "Tables decorated with flowers for an event",
@@ -75,7 +80,8 @@
     "unsplash": "1554048612-b6a482bc67e5"
   },
   "cat/videography": {
-    "alt": "A videographer filming with a camera rig"
+    "alt": "A video being edited on a timeline",
+    "unsplash": "1574717024653-61fd2cf4d44d"
   },
   "cat/dj_music": {
     "alt": "A DJ playing at a party",
@@ -94,7 +100,8 @@
     "unsplash": "1436491865332-7a61a109cc05"
   },
   "cat/courier_delivery": {
-    "alt": "Stacked parcels ready to ship"
+    "alt": "Parcels stacked in a shipping warehouse",
+    "unsplash": "1586528116311-ad8dd3c8310d"
   },
   "cat/money_transfer": {
     "alt": "Banknotes from around the world",
