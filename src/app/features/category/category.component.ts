@@ -9,21 +9,25 @@ import { CategoryData } from '../../core/models/directory.model';
 import { RevealDirective } from '../../core/ui/reveal.directive';
 import { BusinessCardComponent } from '../../shared/business-card.component';
 import { isOpenNow } from '../../core/util/hours.util';
+import { IconComponent } from '../../shared/icon.component';
+import { PhotoComponent } from '../../shared/photo.component';
 
 const PAGE = 24;
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [RouterLink, RevealDirective, BusinessCardComponent],
+  imports: [RouterLink, RevealDirective, BusinessCardComponent, IconComponent, PhotoComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="relative overflow-hidden border-b border-line bg-gradient-to-br from-[#fff3e4] to-paper">
-      <div class="bg-motif absolute inset-0 opacity-30"></div>
+      <app-photo class="absolute inset-y-0 right-0 hidden w-1/2 md:block" [key]="image()" sizes="50vw" [eager]="true" />
+      <div class="absolute inset-0 hidden bg-gradient-to-r from-[#fff3e4] via-[#fff3e4]/90 to-transparent md:block"></div>
+      <div class="bg-motif absolute inset-0 opacity-30 md:hidden"></div>
       <div class="apneyy-container relative py-12">
         <nav class="text-xs text-ink-3" aria-label="Breadcrumb"><a routerLink="/" class="hover:text-brand">Home</a> / <a routerLink="/categories" class="hover:text-brand">Categories</a> / {{ label() }}</nav>
         <div class="mt-3 flex items-center gap-4">
-          <span class="grid h-16 w-16 animate-scale-in place-items-center rounded-2xl bg-white text-4xl shadow-card" aria-hidden="true">{{ icon() }}</span>
+          <span class="grid h-16 w-16 shrink-0 animate-scale-in place-items-center rounded-2xl bg-white text-3xl text-brand shadow-card"><app-icon [name]="icon()" /></span>
           <div>
             <h1 class="animate-fade-up font-display text-3xl font-bold tracking-tight sm:text-4xl">South Asian {{ label().toLowerCase() }} in the US</h1>
             <p class="mt-1 text-ink-2">{{ count() }} {{ count() === 1 ? 'place' : 'places' }} on Apneyy, checked by our team.</p>
@@ -58,7 +62,7 @@ const PAGE = 24;
         }
       } @else {
         <div class="rounded-3xl border border-dashed border-line bg-white px-6 py-16 text-center">
-          <p class="text-5xl" aria-hidden="true">{{ icon() }}</p>
+          <span class="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand-light text-3xl text-brand"><app-icon [name]="icon()" /></span>
           <h2 class="mt-3 font-display text-2xl font-bold">{{ openNow() ? 'Nothing open right now' : 'Coming soon' }}</h2>
           <p class="mx-auto mt-2 max-w-md text-ink-3">{{ openNow() ? 'Try again later, or turn off “Open now”.' : 'We’re adding ' + label().toLowerCase() + ' every week. Know a great one? Tell them to list on Apneyy for free.' }}</p>
           <a routerLink="/categories" class="apneyy-btn-outline mt-6">Browse other categories</a>
@@ -89,6 +93,7 @@ export class CategoryComponent {
 
   readonly label = computed(() => this.cats.label(this.id()));
   readonly icon = computed(() => this.cats.icon(this.id()));
+  readonly image = computed(() => this.cats.image(this.id()));
   readonly count = computed(() => this.data()?.entries.length ?? 0);
   readonly list = computed(() => {
     let l = this.data()?.entries ?? [];

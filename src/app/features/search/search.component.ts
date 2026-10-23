@@ -14,6 +14,7 @@ import { LANGUAGES } from '../../core/constants/languages.constant';
 import { BusinessCardComponent } from '../../shared/business-card.component';
 import { CardSkeletonComponent } from '../../shared/card-skeleton.component';
 import { ToastService } from '../../core/ui/toast.service';
+import { IconComponent } from '../../shared/icon.component';
 
 const PAGE = 24;
 
@@ -53,7 +54,7 @@ function toParams(f: SearchFilters): Params {
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [FormsModule, NgTemplateOutlet, RouterLink, BusinessCardComponent, CardSkeletonComponent],
+  imports: [FormsModule, NgTemplateOutlet, RouterLink, BusinessCardComponent, CardSkeletonComponent, IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="border-b border-line bg-white/60">
@@ -114,7 +115,7 @@ function toParams(f: SearchFilters): Params {
           <div class="mt-4 flex flex-wrap gap-2">
             @for (c of chips(); track c.key) {
               <button type="button" (click)="c.remove()" class="inline-flex animate-scale-in items-center gap-1.5 rounded-full bg-brand-light px-3 py-1.5 text-sm font-medium text-brand-ink transition hover:bg-brand hover:text-white">
-                {{ c.label }} <span aria-hidden="true">✕</span><span class="sr-only">Remove filter</span>
+                {{ c.label }} <app-icon name="x" /><span class="sr-only">Remove filter</span>
               </button>
             }
             <button type="button" class="apneyy-btn-ghost !py-1.5 text-brand" (click)="clear()">Clear all</button>
@@ -129,7 +130,7 @@ function toParams(f: SearchFilters): Params {
             </div>
           } @else if (!hits().length) {
             <div class="animate-fade-up rounded-3xl border border-dashed border-line bg-white px-6 py-16 text-center">
-              <p class="text-5xl" aria-hidden="true">🔍</p>
+              <span class="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand-light text-3xl text-brand"><app-icon name="search" /></span>
               <h2 class="mt-4 font-display text-2xl font-bold">No matches yet</h2>
               <p class="mx-auto mt-2 max-w-md text-ink-3">Try fewer filters, a nearby city, or a broader word like “restaurant” or “grocery”. New businesses join Apneyy every week.</p>
               <div class="mt-6 flex flex-wrap justify-center gap-2">
@@ -160,7 +161,7 @@ function toParams(f: SearchFilters): Params {
         <div class="absolute inset-x-0 bottom-0 flex max-h-[88vh] animate-slide-up flex-col rounded-t-3xl bg-paper shadow-2xl">
           <div class="flex items-center justify-between border-b border-line px-5 py-4">
             <h2 class="font-display text-xl font-bold">Filters</h2>
-            <button type="button" class="apneyy-btn-ghost" (click)="sheet.set(false)" aria-label="Close">✕</button>
+            <button type="button" class="apneyy-btn-ghost" (click)="sheet.set(false)" aria-label="Close"><app-icon name="x" class="text-lg" /></button>
           </div>
           <div class="flex-1 space-y-6 overflow-y-auto px-5 py-5"><ng-container *ngTemplateOutlet="filtersTpl" /></div>
           <div class="flex gap-2 border-t border-line p-4">
@@ -178,7 +179,7 @@ function toParams(f: SearchFilters): Params {
           @for (g of cats.groups(); track g.id) {
             <details class="group" [open]="g.categories.some(isSelectedCat)">
               <summary class="flex cursor-pointer list-none items-center justify-between rounded-lg px-2 py-1.5 text-sm font-semibold text-ink-2 hover:bg-sunk">
-                <span>{{ g.icon }} {{ g.label }}</span>
+                <span class="inline-flex items-center gap-2"><app-icon class="text-ink-3" [name]="g.icon" /> {{ g.label }}</span>
                 <span class="text-xs text-ink-4 transition group-open:rotate-90" aria-hidden="true">▶</span>
               </summary>
               <div class="ml-2 mt-1 space-y-0.5 border-l border-line pl-3">
@@ -208,7 +209,7 @@ function toParams(f: SearchFilters): Params {
         <legend class="mb-2.5 text-sm font-bold text-ink">Dietary</legend>
         <div class="flex flex-wrap gap-1.5">
           @for (d of dietary; track d.id) {
-            <button type="button" class="apneyy-chip !px-3 !py-1.5 !text-xs" [attr.aria-pressed]="f().dietary.includes(d.id)" (click)="toggle('dietary', d.id)">{{ d.icon }} {{ d.label }}</button>
+            <button type="button" class="apneyy-chip !px-3 !py-1.5 !text-xs" [attr.aria-pressed]="f().dietary.includes(d.id)" (click)="toggle('dietary', d.id)"><app-icon [name]="d.icon || 'leaf'" /> {{ d.label }}</button>
           }
         </div>
       </fieldset>

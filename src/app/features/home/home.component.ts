@@ -12,6 +12,8 @@ import { SearchBoxComponent } from '../../shared/search-box.component';
 import { CarouselComponent } from '../../shared/carousel.component';
 import { BusinessCardComponent } from '../../shared/business-card.component';
 import { environment } from '../../../environments/environment';
+import { IconComponent } from '../../shared/icon.component';
+import { PhotoComponent } from '../../shared/photo.component';
 
 const ROTATING = ['biryani', 'a mehndi artist', 'a gurdwara', 'fresh paneer', 'a Bollywood DJ', 'masala chai', 'a saree shop', 'a pandit ji'];
 
@@ -26,7 +28,7 @@ const FAQ = [
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, RevealDirective, SearchBoxComponent, CarouselComponent, BusinessCardComponent],
+  imports: [RouterLink, RevealDirective, SearchBoxComponent, CarouselComponent, BusinessCardComponent, IconComponent, PhotoComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Hero -->
@@ -34,8 +36,8 @@ const FAQ = [
       <div class="absolute inset-0 -z-10 bg-gradient-to-b from-[#fff3e4] via-[#fdf2ee] to-paper"></div>
       <div class="bg-motif absolute inset-0 -z-10 opacity-40 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)]"></div>
       <div class="pointer-events-none absolute inset-0 -z-10 hidden lg:block" aria-hidden="true">
-        @for (f of floaters; track f.icon) {
-          <span class="absolute animate-float text-4xl opacity-90 drop-shadow" [style.left]="f.x" [style.top]="f.y" [style.animation-delay]="f.d">{{ f.icon }}</span>
+        @for (f of floaters; track f.key) {
+          <app-photo class="absolute h-20 w-20 animate-float rounded-full shadow-lift ring-4 ring-white xl:h-24 xl:w-24" [key]="f.key" sizes="96px" [style.left]="f.x" [style.top]="f.y" [style.animation-delay]="f.d" />
         }
       </div>
 
@@ -61,7 +63,7 @@ const FAQ = [
         <div class="mt-5 flex animate-fade-up flex-wrap justify-center gap-2 [animation-delay:320ms]">
           <span class="py-2 text-sm text-ink-3">Popular:</span>
           @for (p of popular; track p.label) {
-            <a [routerLink]="'/search'" [queryParams]="p.params" class="apneyy-chip !bg-white/80 !py-1.5 backdrop-blur">{{ p.label }}</a>
+            <a [routerLink]="'/search'" [queryParams]="p.params" class="apneyy-chip !bg-white/80 !py-1.5 backdrop-blur"><app-icon class="text-brand" [name]="p.icon" /> {{ p.label }}</a>
           }
         </div>
 
@@ -87,7 +89,7 @@ const FAQ = [
         <div class="flex gap-1.5 overflow-x-auto" role="tablist" aria-label="Category groups">
           <button type="button" role="tab" class="apneyy-chip !py-1.5" [attr.aria-pressed]="group() === ''" [attr.aria-selected]="group() === ''" (click)="group.set('')">All</button>
           @for (g of cats.groups(); track g.id) {
-            <button type="button" role="tab" class="apneyy-chip !py-1.5" [attr.aria-pressed]="group() === g.id" [attr.aria-selected]="group() === g.id" (click)="group.set(g.id)">{{ g.icon }} {{ g.label }}</button>
+            <button type="button" role="tab" class="apneyy-chip !py-1.5" [attr.aria-pressed]="group() === g.id" [attr.aria-selected]="group() === g.id" (click)="group.set(g.id)"><app-icon [name]="g.icon" /> {{ g.label }}</button>
           }
         </div>
       </div>
@@ -95,9 +97,12 @@ const FAQ = [
         <app-carousel label="Categories" [showProgress]="true">
           @for (c of visibleCats(); track c.id; let i = $index) {
             <a [routerLink]="['/category', c.id]" class="group w-36 sm:w-44">
-              <div class="relative grid aspect-square place-items-center overflow-hidden rounded-3xl border border-line bg-white shadow-card transition duration-300 group-hover:-translate-y-1 group-hover:border-brand/30 group-hover:shadow-lift">
-                <div class="bg-motif absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-60"></div>
-                <span class="relative text-5xl transition duration-500 group-hover:scale-110 group-hover:-rotate-6" aria-hidden="true">{{ c.icon }}</span>
+              <div class="relative aspect-square overflow-hidden rounded-3xl border border-line bg-white shadow-card transition duration-300 group-hover:-translate-y-1 group-hover:border-brand/30 group-hover:shadow-lift">
+                <app-photo class="absolute inset-0 bg-sunk" [key]="cats.image(c.id)" sizes="(min-width: 640px) 11rem, 9rem" [eager]="i < 4" imgClass="transition duration-500 group-hover:scale-110">
+                  <div class="bg-motif absolute inset-0 opacity-60"></div>
+                  <span class="absolute inset-0 grid place-items-center text-5xl text-brand/70"><app-icon [name]="c.icon" [stroke]="1.5" /></span>
+                </app-photo>
+                <span class="absolute bottom-2 left-2 grid h-8 w-8 place-items-center rounded-xl bg-white/90 text-base text-brand shadow-sm backdrop-blur"><app-icon [name]="c.icon" /></span>
               </div>
               <p class="mt-2.5 text-center text-sm font-semibold leading-snug text-ink group-hover:text-brand">{{ c.label }}</p>
               <p class="text-center text-xs text-ink-3">{{ countFor(c.id) }}</p>
@@ -196,10 +201,12 @@ const FAQ = [
       </div>
       <div class="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
         @for (d of diets; track d.id; let i = $index) {
-          <a [routerLink]="'/search'" [queryParams]="{ diet: d.id }" [appReveal]="i" class="group rounded-3xl border border-line bg-white p-6 text-center transition hover:-translate-y-1 hover:border-brand/30 hover:shadow-lift">
-            <span class="inline-block text-4xl transition duration-500 group-hover:scale-125" aria-hidden="true">{{ d.icon }}</span>
-            <p class="mt-3 font-display text-lg font-bold text-ink">{{ d.label }}</p>
-            <p class="mt-1 text-sm text-ink-3">{{ d.hint }}</p>
+          <a [routerLink]="'/search'" [queryParams]="{ diet: d.id }" [appReveal]="i" class="group relative isolate flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-3xl border border-line bg-ink p-5 text-white transition hover:-translate-y-1 hover:shadow-lift sm:aspect-[4/3]">
+            <app-photo class="absolute inset-0 -z-10" [key]="'diet/' + d.id" sizes="(min-width: 768px) 25vw, 50vw" imgClass="transition duration-700 group-hover:scale-110" />
+            <div class="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+            <span class="mb-auto grid h-10 w-10 place-items-center rounded-xl bg-white/90 text-xl text-brand shadow-sm"><app-icon [name]="d.icon" /></span>
+            <p class="font-display text-xl font-bold">{{ d.label }}</p>
+            <p class="mt-0.5 text-sm text-white/80">{{ d.hint }}</p>
           </a>
         }
       </div>
@@ -212,7 +219,7 @@ const FAQ = [
         <div class="mt-10 grid gap-8 md:grid-cols-3">
           @for (s of why; track s.title; let i = $index) {
             <div class="text-center" [appReveal]="i">
-              <span class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-brand-light text-2xl" aria-hidden="true">{{ s.icon }}</span>
+              <span class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-brand-light text-2xl text-brand"><app-icon [name]="s.icon" /></span>
               <h3 class="mt-4 font-display text-xl font-bold">{{ s.title }}</h3>
               <p class="mt-2 text-sm leading-relaxed text-ink-3">{{ s.body }}</p>
             </div>
@@ -272,35 +279,35 @@ export class HomeComponent implements OnDestroy {
   private timer: ReturnType<typeof setInterval> | null = null;
 
   readonly floaters = [
-    { icon: '🍛', x: '7%', y: '22%', d: '0s' },
-    { icon: '🪔', x: '88%', y: '18%', d: '1.2s' },
-    { icon: '💍', x: '12%', y: '64%', d: '2.1s' },
-    { icon: '☕', x: '84%', y: '60%', d: '.6s' },
-    { icon: '🛕', x: '93%', y: '38%', d: '1.8s' },
-    { icon: '🥘', x: '3%', y: '43%', d: '2.6s' },
+    { key: 'cat/restaurant', x: '6%', y: '20%', d: '0s' },
+    { key: 'cat/pooja_services', x: '86%', y: '16%', d: '1.2s' },
+    { key: 'cat/jewelry_store', x: '11%', y: '62%', d: '2.1s' },
+    { key: 'cat/bakery_cafe', x: '83%', y: '58%', d: '.6s' },
+    { key: 'cat/temple', x: '92%', y: '37%', d: '1.8s' },
+    { key: 'cat/quick_service', x: '2%', y: '41%', d: '2.6s' },
   ];
 
   readonly popular = [
-    { label: '🍛 Biryani', params: { q: 'biryani' } },
-    { label: '🥞 Dosa', params: { q: 'dosa' } },
-    { label: '☪️ Halal', params: { diet: 'halal' } },
-    { label: '🙏 Jain food', params: { diet: 'jain' } },
-    { label: '💅 Threading', params: { q: 'threading' } },
-    { label: '🍬 Mithai', params: { cat: 'sweets_mithai' } },
-    { label: '🛒 Grocery', params: { cat: 'grocery_store' } },
+    { label: 'Biryani', icon: 'cooking-pot', params: { q: 'biryani' } },
+    { label: 'Dosa', icon: 'utensils-crossed', params: { q: 'dosa' } },
+    { label: 'Halal', icon: 'badge-check', params: { diet: 'halal' } },
+    { label: 'Jain food', icon: 'hand-heart', params: { diet: 'jain' } },
+    { label: 'Threading', icon: 'sparkles', params: { q: 'threading' } },
+    { label: 'Mithai', icon: 'candy', params: { cat: 'sweets_mithai' } },
+    { label: 'Grocery', icon: 'shopping-cart', params: { cat: 'grocery_store' } },
   ];
 
   readonly diets = [
-    { id: 'pure_veg', label: 'Pure veg', icon: '🥬', hint: 'No meat, no eggs' },
-    { id: 'jain', label: 'Jain', icon: '🙏', hint: 'Jain-friendly menus' },
-    { id: 'halal', label: 'Halal', icon: '☪️', hint: 'Certified or halal meat' },
-    { id: 'vegan', label: 'Vegan', icon: '🌱', hint: 'Plant-based options' },
+    { id: 'pure_veg', label: 'Pure veg', icon: 'salad', hint: 'No meat, no eggs' },
+    { id: 'jain', label: 'Jain', icon: 'hand-heart', hint: 'Jain-friendly menus' },
+    { id: 'halal', label: 'Halal', icon: 'badge-check', hint: 'Certified or halal meat' },
+    { id: 'vegan', label: 'Vegan', icon: 'sprout', hint: 'Plant-based options' },
   ];
 
   readonly why = [
-    { icon: '✅', title: 'Checked by real people', body: 'Our team calls and verifies businesses before they go live, so you’re not chasing closed shops or wrong numbers.' },
-    { icon: '🗣️', title: 'Your language, your food', body: 'Filter by the languages staff speak and by Jain, halal, pure veg and more. Things big apps don’t ask.' },
-    { icon: '⚡', title: 'Fast, free, no clutter', body: 'No sign-up needed to search. Save favourites in one tap and see who’s open right now, in their own time zone.' },
+    { icon: 'badge-check', title: 'Checked by real people', body: 'Our team calls and verifies businesses before they go live, so you’re not chasing closed shops or wrong numbers.' },
+    { icon: 'languages', title: 'Your language, your food', body: 'Filter by the languages staff speak and by Jain, halal, pure veg and more. Things big apps don’t ask.' },
+    { icon: 'zap', title: 'Fast, free, no clutter', body: 'No sign-up needed to search. Save favourites in one tap and see who’s open right now, in their own time zone.' },
   ];
 
   readonly visibleCats = computed(() => {

@@ -11,7 +11,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr": "node dist/apneyy-web/server/server.mjs"
+    "serve:ssr": "node dist/apneyy-web/server/server.mjs",
+    "images": "node scripts/images/build-images.mjs"
   },
   "private": true,
   "dependencies": {
@@ -46,6 +47,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.5.31",
+    "sharp": "^0.33.5",
     "tailwindcss": "^3.4.19",
     "typescript": "~5.5.2"
   }

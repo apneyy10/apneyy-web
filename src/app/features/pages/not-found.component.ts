@@ -2,15 +2,16 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SeoService } from '../../core/seo/seo.service';
 import { SearchBoxComponent } from '../../shared/search-box.component';
+import { PhotoComponent } from '../../shared/photo.component';
 
 @Component({
   selector: 'app-not-found',
   standalone: true,
-  imports: [RouterLink, SearchBoxComponent],
+  imports: [RouterLink, SearchBoxComponent, PhotoComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="apneyy-container max-w-2xl py-24 text-center">
-      <p class="animate-float text-7xl" aria-hidden="true">🪔</p>
+      <app-photo class="mx-auto aspect-[3/2] w-48 animate-float rounded-3xl shadow-lift" key="cat/pooja_services" sizes="12rem" />
       <h1 class="mt-6 font-display text-4xl font-bold">This page wandered off</h1>
       <p class="mt-3 text-ink-2">The link may be old. Try a search instead.</p>
       <div class="mt-8 text-left"><app-search-box /></div>

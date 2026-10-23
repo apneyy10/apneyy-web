@@ -1,0 +1,186 @@
+{
+  "_comment": "Stock photos bundled into public/img, all from Unsplash under the Unsplash licence (free for commercial use, no permission needed). 'unsplash' is the photo id from images.unsplash.com/photo-<id>. Keys without an id fall back to their group's photo in the app; add an id and run `npm run images` to fill one in.",
+  "cat/restaurant": {
+    "alt": "Tandoori chicken, naan and chutneys on a restaurant table",
+    "unsplash": "1617692855027-33b14f061079"
+  },
+  "cat/quick_service": {
+    "alt": "Crispy samosas with green chutney",
+    "unsplash": "1601050690597-df0568f70950"
+  },
+  "cat/sweets_mithai": {
+    "alt": "A tray of colourful South Asian sweets"
+  },
+  "cat/bakery_cafe": {
+    "alt": "A cup of spiced tea with whole spices",
+    "unsplash": "1571934811356-5cc061b6821f"
+  },
+  "cat/food_truck": {
+    "alt": "A food truck serving customers",
+    "unsplash": "1565123409695-7b5ef63a2efb"
+  },
+  "cat/catering": {
+    "alt": "A large platter of biryani",
+    "unsplash": "1633945274405-b6c8069047b0"
+  },
+  "cat/tiffin_service": {
+    "alt": "A steel thali with dal, sabzi and roti",
+    "unsplash": "1546833999-b9f581a1996d"
+  },
+  "cat/grocery_store": {
+    "alt": "Bowls of whole and ground spices",
+    "unsplash": "1532336414038-cf19250c5757"
+  },
+  "cat/paan_shop": {
+    "alt": "Fresh paan leaves"
+  },
+  "cat/clothing_store": {
+    "alt": "A woman wearing a silk saree",
+    "unsplash": "1610030469983-98e550d6193c"
+  },
+  "cat/jewelry_store": {
+    "alt": "A gold bangle",
+    "unsplash": "1611591437281-460bfbe1220a"
+  },
+  "cat/pooja_samagri": {
+    "alt": "A puja thali with diya, flowers and incense"
+  },
+  "cat/books_media": {
+    "alt": "Shelves of books in a bookshop",
+    "unsplash": "1507842217343-583bb7270b66"
+  },
+  "cat/home_decor": {
+    "alt": "Brass lamps and handcrafted home decor"
+  },
+  "cat/beauty_salon": {
+    "alt": "Makeup being applied at a salon",
+    "unsplash": "1487412947147-5cebf100ffc2"
+  },
+  "cat/barber_shop": {
+    "alt": "Chairs and mirrors in a barber shop",
+    "unsplash": "1585747860715-2ba37e788b70"
+  },
+  "cat/mehndi_artist": {
+    "alt": "Detailed bridal mehndi on hands"
+  },
+  "cat/tailoring": {
+    "alt": "A tailor stitching fabric on a sewing machine"
+  },
+  "cat/event_planner": {
+    "alt": "Tables decorated with flowers for an event",
+    "unsplash": "1464366400600-7168b8af9bc3"
+  },
+  "cat/photography": {
+    "alt": "A photographer holding a camera",
+    "unsplash": "1554048612-b6a482bc67e5"
+  },
+  "cat/videography": {
+    "alt": "A videographer filming with a camera rig"
+  },
+  "cat/dj_music": {
+    "alt": "A DJ playing at a party",
+    "unsplash": "1470225620780-dba8ba36b745"
+  },
+  "cat/banquet_hall": {
+    "alt": "A banquet hall set with round tables",
+    "unsplash": "1519167758481-83f550bb49b3"
+  },
+  "cat/dance_studio": {
+    "alt": "A dancer mid-performance",
+    "unsplash": "1547153760-18fc86324498"
+  },
+  "cat/travel_agent": {
+    "alt": "An aeroplane wing above the clouds",
+    "unsplash": "1436491865332-7a61a109cc05"
+  },
+  "cat/courier_delivery": {
+    "alt": "Stacked parcels ready to ship"
+  },
+  "cat/money_transfer": {
+    "alt": "Banknotes from around the world",
+    "unsplash": "1580519542036-c47de6196ba5"
+  },
+  "cat/laundry": {
+    "alt": "Washing machines in a laundromat",
+    "unsplash": "1545173168-9f1947eebb7f"
+  },
+  "cat/auto_truck": {
+    "alt": "A mechanic working under the hood",
+    "unsplash": "1625047509248-ec889cbff17f"
+  },
+  "cat/fitness_yoga": {
+    "alt": "A yoga class in a bright studio",
+    "unsplash": "1544367567-0f2fcb009e0b"
+  },
+  "cat/other_service": {
+    "alt": "A shopkeeper serving a customer at the counter",
+    "unsplash": "1556740758-90de374c12ad"
+  },
+  "cat/temple": {
+    "alt": "A South Indian temple gopuram at dusk",
+    "unsplash": "1582510003544-4d00b7f74220"
+  },
+  "cat/gurdwara": {
+    "alt": "The Golden Temple in Amritsar",
+    "unsplash": "1588096344356-9b497caeeb64",
+    "position": "top"
+  },
+  "cat/pooja_services": {
+    "alt": "A lit diya held in two hands",
+    "unsplash": "1605292356183-a77d0a9c9d1d"
+  },
+  "cat/community_org": {
+    "alt": "Friends sitting together arm in arm",
+    "unsplash": "1529156069898-49953e39b3ac"
+  },
+  "group/food": {
+    "alt": "Bowls of curry and rice seen from above",
+    "unsplash": "1585937421612-70a008356fbe"
+  },
+  "group/shopping": {
+    "alt": "A busy market stall full of goods",
+    "unsplash": "1533900298318-6b8da08a523e"
+  },
+  "group/beauty": {
+    "alt": "A woman in a silk saree and gold jewellery",
+    "unsplash": "1617627143750-d86bc21e42bb",
+    "position": "top"
+  },
+  "group/events": {
+    "alt": "A banquet hall set for a reception",
+    "unsplash": "1519167758481-83f550bb49b3"
+  },
+  "group/services": {
+    "alt": "A shopkeeper serving a customer at the counter",
+    "unsplash": "1556740758-90de374c12ad"
+  },
+  "group/community": {
+    "alt": "The ghats of Varanasi by the river",
+    "unsplash": "1561361058-c24cecae35ca"
+  },
+  "diet/pure_veg": {
+    "alt": "A thali with dal, curries and roti",
+    "unsplash": "1567337710282-00832b415979"
+  },
+  "diet/jain": {
+    "alt": "A crisp dosa with chutneys",
+    "unsplash": "1630409351241-e90e7f5e434d"
+  },
+  "diet/halal": {
+    "alt": "Kebabs on a charcoal grill",
+    "unsplash": "1599487488170-d11ec9c172f0"
+  },
+  "diet/vegan": {
+    "alt": "A pan of vegetable curry",
+    "unsplash": "1596797038530-2c107229654b"
+  },
+  "hero/home": {
+    "alt": "Bowls of curry and rice shared on a table",
+    "unsplash": "1585937421612-70a008356fbe",
+    "widths": [
+      640,
+      1280,
+      1920
+    ]
+  }
+}

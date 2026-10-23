@@ -5,12 +5,15 @@ import { CategoryService } from '../core/data/category.service';
 import { DataService } from '../core/data/data.service';
 import { CitySummary, DirectoryEntry } from '../core/models/directory.model';
 import { fold } from '../core/util/text.util';
+import { IconComponent } from './icon.component';
+import { PhotoComponent } from './photo.component';
 
 interface Suggestion {
   kind: 'category' | 'business' | 'city';
   label: string;
   sub: string;
   icon: string;
+  image?: string | null;
   run: () => void;
 }
 
@@ -21,7 +24,7 @@ interface Suggestion {
 @Component({
   selector: 'app-search-box',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, IconComponent, PhotoComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block relative' },
   template: `
@@ -64,7 +67,13 @@ interface Suggestion {
           <li role="option" [attr.aria-selected]="i === active()">
             <button type="button" (mousedown)="$event.preventDefault()" (click)="s.run()" (mouseenter)="active.set(i)"
               class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition" [class.bg-sunk]="i === active()">
-              <span class="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-brand-light text-lg" aria-hidden="true">{{ s.icon }}</span>
+              <span class="relative grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-lg bg-brand-light text-base text-brand">
+                @if (s.image) {
+                  <app-photo class="absolute inset-0" [key]="s.image" sizes="36px" />
+                } @else {
+                  <app-icon [name]="s.icon" />
+                }
+              </span>
               <span class="min-w-0">
                 <span class="block truncate text-sm font-semibold text-ink">{{ s.label }}</span>
                 <span class="block truncate text-xs text-ink-3">{{ s.sub }}</span>
@@ -107,7 +116,7 @@ export class SearchBoxComponent {
       const w = fold(this.where()).trim();
       for (const c of this.cities()) {
         if (w && !fold(`${c.city}, ${c.state}`).includes(w) && !c.state.toLowerCase().startsWith(w)) continue;
-        out.push({ kind: 'city', label: `${c.city}, ${c.state}`, sub: `${c.count} ${c.count === 1 ? 'business' : 'businesses'}`, icon: '📍', run: () => this.pickWhere(`${c.city}, ${c.state}`) });
+        out.push({ kind: 'city', label: `${c.city}, ${c.state}`, sub: `${c.count} ${c.count === 1 ? 'business' : 'businesses'}`, icon: 'map-pin', run: () => this.pickWhere(`${c.city}, ${c.state}`) });
         if (out.length >= 8) break;
       }
       return out;
@@ -117,11 +126,11 @@ export class SearchBoxComponent {
       return this.cats
         .all()
         .slice(0, 6)
-        .map(c => ({ kind: 'category' as const, label: c.label, sub: 'Category', icon: c.icon || '🏪', run: () => this.goCategory(c.id) }));
+        .map(c => ({ kind: 'category' as const, label: c.label, sub: 'Category', icon: c.icon || 'store', image: this.cats.image(c.id), run: () => this.goCategory(c.id) }));
     }
     for (const c of this.cats.all()) {
       if (fold(c.label).includes(q) || c.suggestedTags.some(t => fold(t).includes(q))) {
-        out.push({ kind: 'category', label: c.label, sub: 'Category', icon: c.icon || '🏪', run: () => this.goCategory(c.id) });
+        out.push({ kind: 'category', label: c.label, sub: 'Category', icon: c.icon || 'store', image: this.cats.image(c.id), run: () => this.goCategory(c.id) });
       }
       if (out.length >= 3) break;
     }

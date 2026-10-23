@@ -23,13 +23,14 @@ import { LightboxComponent } from './lightbox.component';
 import { ReviewsComponent } from './reviews.component';
 import { ReportDialogComponent } from './report-dialog.component';
 import { environment } from '../../../environments/environment';
+import { IconComponent } from '../../shared/icon.component';
 
 type Loaded = { state: 'ok'; business: PublicBusiness; similar: DirectoryEntry[] } | { state: 'missing' } | { state: 'loading' };
 
 @Component({
   selector: 'app-business',
   standalone: true,
-  imports: [RouterLink, RevealDirective, CoverComponent, SaveButtonComponent, CarouselComponent, BusinessCardComponent, LightboxComponent, ReviewsComponent, ReportDialogComponent],
+  imports: [RouterLink, RevealDirective, CoverComponent, SaveButtonComponent, CarouselComponent, BusinessCardComponent, LightboxComponent, ReviewsComponent, ReportDialogComponent, IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @switch (loaded().state) {
@@ -42,7 +43,7 @@ type Loaded = { state: 'ok'; business: PublicBusiness; similar: DirectoryEntry[]
       }
       @case ('missing') {
         <div class="apneyy-container py-24 text-center">
-          <p class="text-6xl" aria-hidden="true">🧭</p>
+          <span class="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand-light text-3xl text-brand"><app-icon name="compass" /></span>
           <h1 class="mt-4 font-display text-3xl font-bold">We couldn’t find that business</h1>
           <p class="mt-2 text-ink-3">It may have moved or is no longer listed.</p>
           <a routerLink="/search" class="apneyy-btn-primary mt-6">Explore businesses</a>
@@ -86,7 +87,7 @@ type Loaded = { state: 'ok'; business: PublicBusiness; similar: DirectoryEntry[]
             </div>
           } @else {
             <div class="overflow-hidden rounded-3xl" style="view-transition-name: business-hero">
-              <app-cover class="aspect-[16/9] max-h-[26rem] w-full md:aspect-[21/8]" [src]="b.photos[0] || ''" [alt]="b.name" [category]="b.category" [eager]="true" iconSize="6rem" />
+              <app-cover class="aspect-[16/9] max-h-[26rem] w-full md:aspect-[21/8]" [src]="b.photos[0] || ''" [alt]="b.name" [category]="b.category" [eager]="true" iconSize="6rem" sizes="(min-width: 1280px) 1216px, 100vw" />
             </div>
           }
         </div>
@@ -99,7 +100,7 @@ type Loaded = { state: 'ok'; business: PublicBusiness; similar: DirectoryEntry[]
                 <img [src]="b.logo" [alt]="b.name + ' logo'" class="h-20 w-20 shrink-0 rounded-2xl border border-line bg-white object-cover shadow-card" width="80" height="80" />
               }
               <div>
-                <p class="text-sm font-semibold text-saffron-ink">{{ categoryIcon() }} {{ categoryLabel() }}</p>
+                <p class="inline-flex items-center gap-1.5 text-sm font-semibold text-saffron-ink"><app-icon [name]="categoryIcon()" /> {{ categoryLabel() }}</p>
                 <h1 class="mt-1 font-display text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">{{ b.name }}</h1>
                 @if (b.nameNative) { <p class="mt-0.5 text-lg text-ink-3">{{ b.nameNative }}</p> }
                 <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-ink-2">
@@ -118,13 +119,13 @@ type Loaded = { state: 'ok'; business: PublicBusiness; similar: DirectoryEntry[]
 
             <div class="flex animate-fade-up flex-wrap gap-2 [animation-delay:100ms]">
               @if (b.phone) {
-                <a [href]="'tel:' + b.phone" class="apneyy-btn-primary !h-11">📞 Call</a>
+                <a [href]="'tel:' + b.phone" class="apneyy-btn-primary !h-11"><app-icon name="phone" /> Call</a>
               }
-              <a [href]="directionsUrl()" target="_blank" rel="noopener" class="apneyy-btn-outline !h-11">🧭 Directions</a>
+              <a [href]="directionsUrl()" target="_blank" rel="noopener" class="apneyy-btn-outline !h-11"><app-icon name="navigation" /> Directions</a>
               @if (b.website) {
-                <a [href]="link(b.website)" target="_blank" rel="noopener nofollow" class="apneyy-btn-outline !h-11">🌐 Website</a>
+                <a [href]="link(b.website)" target="_blank" rel="noopener nofollow" class="apneyy-btn-outline !h-11"><app-icon name="globe" /> Website</a>
               }
-              <button type="button" class="apneyy-btn-outline !h-11" (click)="share()">↗ Share</button>
+              <button type="button" class="apneyy-btn-outline !h-11" (click)="share()"><app-icon name="share-2" /> Share</button>
               <app-save-button variant="outline" [businessId]="b.id" [name]="b.name" />
             </div>
           </div>
@@ -145,7 +146,7 @@ type Loaded = { state: 'ok'; business: PublicBusiness; similar: DirectoryEntry[]
                 <h2 class="font-display text-2xl font-bold">Why it’s on Apneyy</h2>
                 <ul class="mt-4 grid gap-2 sm:grid-cols-2">
                   @for (c of connections(); track c.id) {
-                    <li class="flex items-center gap-3 rounded-2xl border border-line bg-white px-4 py-3 text-sm font-medium"><span class="text-xl" aria-hidden="true">{{ c.icon }}</span>{{ c.label }}</li>
+                    <li class="flex items-center gap-3 rounded-2xl border border-line bg-white px-4 py-3 text-sm font-medium"><span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-light text-lg text-brand"><app-icon [name]="c.icon || 'sparkles'" /></span>{{ c.label }}</li>
                   }
                 </ul>
               </section>
@@ -234,9 +235,9 @@ type Loaded = { state: 'ok'; business: PublicBusiness; similar: DirectoryEntry[]
                   {{ b.address.city }}, {{ b.address.state }} {{ b.address.postalCode }}
                 </address>
                 <a [href]="directionsUrl()" target="_blank" rel="noopener" class="inline-block font-semibold text-brand hover:underline">Get directions →</a>
-                @if (b.phone) { <p><a [href]="'tel:' + b.phone" class="font-semibold text-ink hover:text-brand">📞 {{ b.phoneDisplay }}</a></p> }
-                @if (b.email) { <p><a [href]="'mailto:' + b.email" class="break-all text-ink-2 hover:text-brand">✉️ {{ b.email }}</a></p> }
-                @if (b.website) { <p><a [href]="link(b.website)" target="_blank" rel="noopener nofollow" class="break-all text-ink-2 hover:text-brand">🌐 {{ b.website.replace('https://', '').replace('http://', '') }}</a></p> }
+                @if (b.phone) { <p><a [href]="'tel:' + b.phone" class="inline-flex items-center gap-2 font-semibold text-ink hover:text-brand"><app-icon name="phone" class="text-ink-3" /> {{ b.phoneDisplay }}</a></p> }
+                @if (b.email) { <p><a [href]="'mailto:' + b.email" class="inline-flex items-center gap-2 break-all text-ink-2 hover:text-brand"><app-icon name="mail" class="text-ink-3" /> {{ b.email }}</a></p> }
+                @if (b.website) { <p><a [href]="link(b.website)" target="_blank" rel="noopener nofollow" class="inline-flex items-center gap-2 break-all text-ink-2 hover:text-brand"><app-icon name="globe" class="text-ink-3" /> {{ b.website.replace('https://', '').replace('http://', '') }}</a></p> }
                 @if (socials().length) {
                   <div class="flex flex-wrap gap-2 pt-1">
                     @for (s of socials(); track s.label) { <a [href]="s.url" target="_blank" rel="noopener nofollow" class="rounded-full bg-sunk px-3 py-1.5 text-xs font-semibold hover:bg-line">{{ s.label }}</a> }
@@ -261,7 +262,7 @@ type Loaded = { state: 'ok'; business: PublicBusiness; similar: DirectoryEntry[]
               <p class="mt-1 text-ink-3">Update photos, hours and details for free.</p>
               <a [href]="businessUrl" class="mt-3 inline-block font-semibold text-brand hover:underline">Manage your listing →</a>
               <hr class="my-4 border-line" />
-              <button type="button" class="font-semibold text-ink-2 hover:text-brand" (click)="reporting.set(true)">⚑ Report a problem</button>
+              <button type="button" class="font-semibold text-ink-2 hover:text-brand" (click)="reporting.set(true)"><span class="inline-flex items-center gap-2"><app-icon name="flag" /> Report a problem</span></button>
             </div>
           </aside>
         </div>
@@ -280,8 +281,8 @@ type Loaded = { state: 'ok'; business: PublicBusiness; similar: DirectoryEntry[]
 
       <!-- Mobile action bar -->
       <div class="fixed inset-x-0 bottom-0 z-40 flex gap-2 border-t border-line bg-white/95 p-3 backdrop-blur md:hidden">
-        @if (b.phone) { <a [href]="'tel:' + b.phone" class="apneyy-btn-primary flex-1">📞 Call</a> }
-        <a [href]="directionsUrl()" target="_blank" rel="noopener" class="apneyy-btn-outline flex-1">🧭 Directions</a>
+        @if (b.phone) { <a [href]="'tel:' + b.phone" class="apneyy-btn-primary flex-1"><app-icon name="phone" /> Call</a> }
+        <a [href]="directionsUrl()" target="_blank" rel="noopener" class="apneyy-btn-outline flex-1"><app-icon name="navigation" /> Directions</a>
         <app-save-button [businessId]="b.id" [name]="b.name" />
       </div>
       <div class="h-16 md:hidden" aria-hidden="true"></div>
@@ -366,7 +367,7 @@ export class BusinessComponent {
     const out: { label: string; values: string[] }[] = [];
     if (b.languages.length) out.push({ label: 'Languages spoken', values: b.languages });
     if (b.cuisines.length) out.push({ label: 'Cuisine', values: b.cuisines.map(c => labelFor(CUISINES, c)) });
-    if (b.dietary.length) out.push({ label: 'Dietary', values: b.dietary.map(d => `${DIETARY.find(x => x.id === d)?.icon ?? ''} ${labelFor(DIETARY, d)}`.trim()) });
+    if (b.dietary.length) out.push({ label: 'Dietary', values: b.dietary.map(d => labelFor(DIETARY, d)) });
     if (b.services.length) out.push({ label: 'Services', values: b.services.map(s => labelFor(SERVICES, s)) });
     if (b.amenities.length) out.push({ label: 'Amenities', values: b.amenities.map(a => labelFor(AMENITIES, a)) });
     if (b.tags.length) out.push({ label: 'Known for', values: b.tags });

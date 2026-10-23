@@ -14,7 +14,7 @@ import { AuthShellComponent } from './auth-shell.component';
     <app-auth-shell heading="Reset your password" sub="We’ll email you a link to choose a new one.">
       @if (sent()) {
         <div class="animate-scale-in rounded-2xl bg-apneyyGreen-tint p-5 text-sm text-apneyyGreen">
-          <p class="font-semibold">Check your inbox 📬</p>
+          <p class="font-semibold">Check your inbox</p>
           <p class="mt-1">If an account exists for {{ email }}, a reset link is on its way. It can take a minute, and may land in spam.</p>
         </div>
         <a routerLink="/login" class="apneyy-btn-outline mt-6 w-full">Back to sign in</a>

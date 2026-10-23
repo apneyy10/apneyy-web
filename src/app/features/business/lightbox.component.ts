@@ -1,16 +1,18 @@
 import { ChangeDetectionStrategy, Component, HostListener, input, model, output } from '@angular/core';
+import { IconComponent } from '../../shared/icon.component';
 
 /** Full-screen photo viewer with arrow keys and swipe. */
 @Component({
   selector: 'app-lightbox',
   standalone: true,
+  imports: [IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="fixed inset-0 z-[80] flex animate-fade-in flex-col bg-black/95 text-white" role="dialog" aria-modal="true" [attr.aria-label]="name() + ' photos'"
       (touchstart)="touchX = $event.touches[0].clientX" (touchend)="swipe($event.changedTouches[0].clientX)">
       <div class="flex items-center justify-between px-4 py-3">
         <p class="text-sm text-white/70">{{ index() + 1 }} / {{ photos().length }}</p>
-        <button type="button" (click)="closed.emit()" class="grid h-10 w-10 place-items-center rounded-full hover:bg-white/10" aria-label="Close" autofocus>✕</button>
+        <button type="button" (click)="closed.emit()" class="grid h-10 w-10 place-items-center rounded-full hover:bg-white/10" aria-label="Close" autofocus><app-icon name="x" class="text-xl" /></button>
       </div>
       <div class="relative flex flex-1 items-center justify-center px-4">
         @for (p of [photos()[index()]]; track p) {

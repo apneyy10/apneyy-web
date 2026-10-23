@@ -6,11 +6,12 @@ import { isOpenNow, statusLine } from '../core/util/hours.util';
 import { DIETARY, labelFor } from '../core/constants/listing-options.constant';
 import { CoverComponent } from './cover.component';
 import { SaveButtonComponent } from './save-button.component';
+import { IconComponent } from './icon.component';
 
 @Component({
   selector: 'app-business-card',
   standalone: true,
-  imports: [RouterLink, CoverComponent, SaveButtonComponent],
+  imports: [RouterLink, CoverComponent, SaveButtonComponent, IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block' },
   template: `
@@ -46,7 +47,7 @@ import { SaveButtonComponent } from './save-button.component';
           @if (e().nameNative) {
             <p class="text-sm text-ink-3">{{ e().nameNative }}</p>
           }
-          <p class="mt-0.5 text-sm text-ink-2">{{ categoryIcon() }} {{ categoryLabel() }} <span class="text-ink-4">·</span> {{ e().city }}, {{ e().state }}</p>
+          <p class="mt-0.5 text-sm text-ink-2"><app-icon class="mr-0.5 text-ink-3" [name]="categoryIcon()" /> {{ categoryLabel() }} <span class="text-ink-4">·</span> {{ e().city }}, {{ e().state }}</p>
         </div>
         @if (!compact() && e().summary) {
           <p class="line-clamp-2 text-sm leading-relaxed text-ink-3">{{ e().summary }}</p>
