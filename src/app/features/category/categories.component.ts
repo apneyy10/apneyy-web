@@ -5,11 +5,13 @@ import { CategoryService } from '../../core/data/category.service';
 import { DataService } from '../../core/data/data.service';
 import { SeoService } from '../../core/seo/seo.service';
 import { RevealDirective } from '../../core/ui/reveal.directive';
+import { IconComponent } from '../../shared/icon.component';
+import { PhotoComponent } from '../../shared/photo.component';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [RouterLink, RevealDirective],
+  imports: [RouterLink, RevealDirective, IconComponent, PhotoComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="apneyy-container py-12">
@@ -19,14 +21,19 @@ import { RevealDirective } from '../../core/ui/reveal.directive';
       <div class="mt-10 space-y-12">
         @for (g of cats.groups(); track g.id) {
           <section [attr.aria-labelledby]="'g-' + g.id">
-            <h2 [id]="'g-' + g.id" class="flex items-center gap-2 font-display text-2xl font-bold" appReveal><span aria-hidden="true">{{ g.icon }}</span> {{ g.label }}</h2>
+            <h2 [id]="'g-' + g.id" class="flex items-center gap-2 font-display text-2xl font-bold" appReveal><span class="grid h-10 w-10 place-items-center rounded-xl bg-brand-light text-xl text-brand"><app-icon [name]="g.icon" /></span> {{ g.label }}</h2>
             <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
               @for (c of g.categories; track c.id; let i = $index) {
-                <a [routerLink]="['/category', c.id]" [appReveal]="i % 4" class="group flex items-center gap-3 rounded-2xl border border-line bg-white p-4 transition hover:-translate-y-0.5 hover:border-brand/30 hover:shadow-lift">
-                  <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-sunk text-2xl transition group-hover:scale-110 group-hover:bg-brand-light" aria-hidden="true">{{ c.icon }}</span>
-                  <span class="min-w-0">
-                    <span class="block font-semibold leading-snug text-ink group-hover:text-brand">{{ c.label }}</span>
-                    <span class="text-xs text-ink-3">{{ countLabel(c.id) }}</span>
+                <a [routerLink]="['/category', c.id]" [appReveal]="i % 4" class="group overflow-hidden rounded-2xl border border-line bg-white transition hover:-translate-y-0.5 hover:border-brand/30 hover:shadow-lift">
+                  <app-photo class="aspect-[3/2] bg-sunk" [key]="cats.image(c.id)" sizes="(min-width: 1024px) 18rem, (min-width: 640px) 33vw, 50vw" imgClass="transition duration-500 group-hover:scale-105">
+                    <span class="absolute inset-0 grid place-items-center text-3xl text-brand/70"><app-icon [name]="c.icon" /></span>
+                  </app-photo>
+                  <span class="flex items-center gap-2.5 p-3.5">
+                    <app-icon class="text-lg text-brand" [name]="c.icon" />
+                    <span class="min-w-0">
+                      <span class="block font-semibold leading-snug text-ink group-hover:text-brand">{{ c.label }}</span>
+                      <span class="text-xs text-ink-3">{{ countLabel(c.id) }}</span>
+                    </span>
                   </span>
                 </a>
               }

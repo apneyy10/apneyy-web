@@ -5,11 +5,12 @@ import { CategoryService } from '../core/data/category.service';
 import { HOME_TOUR, SEARCH_TOUR, TourService } from '../core/ui/tour.service';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
+import { IconComponent } from './icon.component';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [RouterLink, LogoComponent],
+  imports: [RouterLink, LogoComponent, IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <footer class="mt-24 bg-ink text-white/80">
@@ -49,7 +50,7 @@ import { Router } from '@angular/router';
       </div>
       <div class="border-t border-white/10">
         <div class="apneyy-container flex flex-col gap-2 py-6 text-xs text-white/50 sm:flex-row sm:justify-between">
-          <p>© {{ year }} Apneyy. Made with ❤️ for our community.</p>
+          <p>© {{ year }} Apneyy. Made with <app-icon name="heart" class="text-brand" /><span class="sr-only">love</span> for our community.</p>
           <p>Listings are shared by business owners and checked by our team.</p>
         </div>
       </div>

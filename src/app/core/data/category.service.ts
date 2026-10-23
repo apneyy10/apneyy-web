@@ -3,6 +3,8 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { CATEGORIES, CATEGORY_GROUPS, CategoryGroupId, CategoryOption } from '../constants/listing-options.constant';
 import { CatalogItem } from '../models/directory.model';
+import { IMAGES } from '../constants/image-manifest';
+import { isIconName } from '../../shared/icons';
 
 export interface CategoryGroup {
   id: CategoryGroupId;
@@ -34,7 +36,8 @@ export class CategoryService {
       byId.set(item.id, {
         id: item.id,
         label: item.label || base?.label || item.id,
-        icon: item.icon || base?.icon || '🏪',
+        // Older catalog entries hold an emoji here; only icon names from the bundled set are used.
+        icon: isIconName(item.icon) ? item.icon : base?.icon || 'store',
         group: (GROUP_IDS.includes(item.group) ? item.group : base?.group || 'services') as CategoryGroupId,
         suggestedTags: item.suggestedTags ?? base?.suggestedTags ?? [],
         requiresLicense: item.requiresLicense ?? base?.requiresLicense,
@@ -61,8 +64,16 @@ export class CategoryService {
     return this.get(id)?.label ?? id.replace(/_/g, ' ');
   }
 
+  /** Lucide icon name for the category. */
   icon(id: string): string {
-    return this.get(id)?.icon ?? '🏪';
+    return this.get(id)?.icon ?? 'store';
+  }
+
+  /** Photo key for the category, falling back to its group's photo. */
+  image(id: string): string | null {
+    if (`cat/${id}` in IMAGES) return `cat/${id}`;
+    const group = `group/${this.group(id)}`;
+    return group in IMAGES ? group : null;
   }
 
   group(id: string): CategoryGroupId {

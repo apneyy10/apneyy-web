@@ -9,7 +9,7 @@ export interface TourStep {
 }
 
 export const HOME_TOUR: TourStep[] = [
-  { title: 'Welcome to Apneyy 🙏', body: 'Find South Asian restaurants, grocers, salons, temples and more near you. Here’s a 20-second look around.' },
+  { title: 'Welcome to Apneyy', body: 'Find South Asian restaurants, grocers, salons, temples and more near you. Here’s a 20-second look around.' },
   { target: 'search', title: 'Search anything', body: 'Type a craving or a need, like “dosa”, “mehndi” or “gurdwara”, and a city or ZIP. Results show up as you type.' },
   { target: 'categories', title: 'Browse by category', body: 'Swipe through categories, or tap one to see every business of that kind.' },
   { target: 'languages', title: 'Speak your language', body: 'Find places where staff speak Hindi, Punjabi, Urdu, Bengali, Tamil, Nepali and more.' },

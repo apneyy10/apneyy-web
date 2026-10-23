@@ -7,12 +7,13 @@ import { ReviewService } from '../../core/member/review.service';
 import { Review } from '../../core/models/member.model';
 import { ToastService } from '../../core/ui/toast.service';
 import { StarsComponent } from '../../shared/stars.component';
+import { IconComponent } from '../../shared/icon.component';
 
 /** Reviews load only when this section scrolls into view, so most visits cost no reads. */
 @Component({
   selector: 'app-reviews',
   standalone: true,
-  imports: [DatePipe, FormsModule, RouterLink, StarsComponent],
+  imports: [DatePipe, FormsModule, RouterLink, StarsComponent, IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block' },
   template: `
@@ -30,9 +31,9 @@ import { StarsComponent } from '../../shared/stars.component';
         </div>
         @if (!writing()) {
           @if (auth.signedIn()) {
-            <button type="button" class="apneyy-btn-outline" (click)="startWriting()">{{ mine() ? 'Edit your review' : '✍️ Write a review' }}</button>
+            <button type="button" class="apneyy-btn-outline" (click)="startWriting()">{{ mine() ? 'Edit your review' : 'Write a review' }}</button>
           } @else {
-            <a routerLink="/login" [queryParams]="{ next: returnUrl() + '#reviews' }" class="apneyy-btn-outline">✍️ Sign in to review</a>
+            <a routerLink="/login" [queryParams]="{ next: returnUrl() + '#reviews' }" class="apneyy-btn-outline"><app-icon name="pen-line" /> Sign in to review</a>
           }
         }
       </div>
@@ -60,7 +61,7 @@ import { StarsComponent } from '../../shared/stars.component';
           }
         } @else if (!items().length && (state() === 'ready' || state() === 'error')) {
           <div class="rounded-2xl border border-dashed border-line bg-white p-8 text-center">
-            <p class="text-3xl" aria-hidden="true">⭐</p>
+            <span class="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand-light text-3xl text-brand"><app-icon name="star" /></span>
             <p class="mt-2 font-semibold">No reviews yet</p>
             <p class="text-sm text-ink-3">Been here? Help the community by sharing your experience.</p>
           </div>
@@ -163,7 +164,7 @@ export class ReviewsComponent {
       this.items.update(list => [saved, ...list.filter(r => r.id !== saved.id)]);
       if (isNew) this.summary.update(s => (s ? { count: s.count + 1, average: (s.average * s.count + saved.rating) / (s.count + 1) } : { count: 1, average: saved.rating }));
       this.writing.set(false);
-      this.toast.show('Thanks for your review! 🙏', 'success');
+      this.toast.show('Thanks for your review!', 'success');
     } catch {
       this.toast.show('Couldn’t post your review. Please try again.', 'error');
     } finally {

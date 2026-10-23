@@ -9,11 +9,12 @@ import { CityData } from '../../core/models/directory.model';
 import { stateName } from '../../core/constants/geography.constant';
 import { RevealDirective } from '../../core/ui/reveal.directive';
 import { BusinessCardComponent } from '../../shared/business-card.component';
+import { IconComponent } from '../../shared/icon.component';
 
 @Component({
   selector: 'app-city',
   standalone: true,
-  imports: [RouterLink, RevealDirective, BusinessCardComponent],
+  imports: [RouterLink, RevealDirective, BusinessCardComponent, IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="relative overflow-hidden bg-ink text-white">
@@ -31,7 +32,7 @@ import { BusinessCardComponent } from '../../shared/business-card.component';
         <div class="-mx-4 mb-6 flex gap-2 overflow-x-auto px-4 pb-1">
           <button type="button" class="apneyy-chip" [attr.aria-pressed]="cat() === ''" (click)="cat.set('')">All</button>
           @for (c of cats(); track c.id) {
-            <button type="button" class="apneyy-chip" [attr.aria-pressed]="cat() === c.id" (click)="cat.set(c.id)">{{ c.icon }} {{ c.label }} <span class="text-ink-4">{{ c.count }}</span></button>
+            <button type="button" class="apneyy-chip" [attr.aria-pressed]="cat() === c.id" (click)="cat.set(c.id)"><app-icon [name]="c.icon" /> {{ c.label }} <span class="text-ink-4">{{ c.count }}</span></button>
           }
         </div>
       }

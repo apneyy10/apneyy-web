@@ -5,11 +5,12 @@ import { AuthService } from '../../core/auth/auth.service';
 import { SavedService } from '../../core/member/saved.service';
 import { SeoService } from '../../core/seo/seo.service';
 import { ToastService } from '../../core/ui/toast.service';
+import { IconComponent } from '../../shared/icon.component';
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="apneyy-container max-w-2xl py-12">
@@ -27,11 +28,11 @@ import { ToastService } from '../../core/ui/toast.service';
 
       <div class="mt-8 grid gap-3 sm:grid-cols-2">
         <a routerLink="/saved" class="apneyy-card flex items-center gap-4 p-5 transition hover:shadow-lift">
-          <span class="text-3xl" aria-hidden="true">❤️</span>
+          <span class="grid h-12 w-12 place-items-center rounded-xl bg-brand-light text-2xl text-brand"><app-icon name="heart" /></span>
           <span><span class="block font-display text-2xl font-bold">{{ saved.count() }}</span><span class="text-sm text-ink-3">Saved businesses</span></span>
         </a>
         <a routerLink="/search" class="apneyy-card flex items-center gap-4 p-5 transition hover:shadow-lift">
-          <span class="text-3xl" aria-hidden="true">🧭</span>
+          <span class="grid h-12 w-12 place-items-center rounded-xl bg-saffron-light text-2xl text-saffron-ink"><app-icon name="compass" /></span>
           <span><span class="block font-semibold">Explore</span><span class="text-sm text-ink-3">Find something new</span></span>
         </a>
       </div>

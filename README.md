@@ -28,6 +28,7 @@ npm install
 npm start               # fetches data, then ng serve on :4200
 npm run build           # fetches data, then builds + prerenders to dist/apneyy-web/browser
 npm run data:sample     # use bundled sample listings
+npm run images          # fetch stock photos listed in scripts/images/images.json
 ```
 
 ## Environment variables (build time)
@@ -64,3 +65,13 @@ Keeping the site fresh: create an **incoming webhook** in Amplify and
   `prefers-reduced-motion`.
 - Guided tours: a home tour and a search tour run once per browser; "Take the quick tour" in the
   footer replays them.
+- Imagery: no emoji. Category, diet and hero pictures are Unsplash photos (Unsplash licence,
+  free for commercial use) bundled in `public/img` as 3:2 WebP at 480/960/1440px, served with
+  `srcset` and lazy loading through `<app-photo>`. A category without its own photo uses its
+  group's photo. To add or swap one, put the Unsplash photo id in
+  `scripts/images/images.json` and run `npm run images` (behind a proxy:
+  `NODE_USE_ENV_PROXY=1`). Small icons are a Lucide subset in `shared/icons.ts`
+  (`<app-icon name="phone" />`); category icons are Lucide names, and old emoji values in the
+  admin catalog are ignored.
+- A business without photos shows its category photo with a category label, so it never looks
+  like a picture of the place itself.

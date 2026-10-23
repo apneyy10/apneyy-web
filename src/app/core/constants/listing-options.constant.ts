@@ -21,71 +21,71 @@ export interface CategoryOption extends Option {
 }
 
 export const CATEGORY_GROUPS: readonly { id: CategoryGroupId; label: string; icon: string }[] = [
-  { id: 'food', label: 'Food & dining', icon: '🍛' },
-  { id: 'shopping', label: 'Shopping', icon: '🛍️' },
-  { id: 'beauty', label: 'Beauty & style', icon: '💅' },
-  { id: 'events', label: 'Weddings & events', icon: '🎉' },
-  { id: 'services', label: 'Everyday services', icon: '🧰' },
-  { id: 'community', label: 'Faith & community', icon: '🪔' },
+  { id: 'food', label: 'Food & dining', icon: 'utensils' },
+  { id: 'shopping', label: 'Shopping', icon: 'shopping-bag' },
+  { id: 'beauty', label: 'Beauty & style', icon: 'sparkles' },
+  { id: 'events', label: 'Weddings & events', icon: 'party-popper' },
+  { id: 'services', label: 'Everyday services', icon: 'briefcase' },
+  { id: 'community', label: 'Faith & community', icon: 'heart-handshake' },
 ] as const;
 
 /** Stored in the listing's `category` field. Ids match the earlier staff-entered data. */
 export const CATEGORIES: readonly CategoryOption[] = [
   // Food & dining
-  { id: 'restaurant', label: 'Restaurant', icon: '🍛', group: 'food', suggestedTags: ['Biryani', 'Tandoor', 'Dosa', 'Thali', 'Lunch Buffet', 'Chaat'] },
-  { id: 'quick_service', label: 'Quick service & takeout', icon: '🥡', group: 'food', suggestedTags: ['Kathi Rolls', 'Vada Pav', 'Combo Meals', 'Late Night'] },
-  { id: 'sweets_mithai', label: 'Sweets & snacks', icon: '🍬', group: 'food', suggestedTags: ['Mithai', 'Kaju Katli', 'Namkeen', 'Diwali Boxes', 'Jalebi'] },
-  { id: 'bakery_cafe', label: 'Bakery & chai café', icon: '☕', group: 'food', suggestedTags: ['Masala Chai', 'Rusk', 'Puffs', 'Eggless Cakes'] },
-  { id: 'food_truck', label: 'Food truck', icon: '🚚', group: 'food', suggestedTags: ['Street Food', 'Pop-up', 'Events'] },
-  { id: 'catering', label: 'Catering', icon: '🍱', group: 'food', suggestedTags: ['Wedding Catering', 'Party Orders', 'Office Lunch', 'Live Counters'] },
-  { id: 'tiffin_service', label: 'Tiffin service', icon: '🥘', group: 'food', suggestedTags: ['Daily Tiffin', 'Home Cooked', 'Weekly Plans', 'Student Plans'] },
-  { id: 'grocery_store', label: 'Grocery store', icon: '🛒', group: 'food', suggestedTags: ['Spices', 'Atta & Rice', 'Fresh Vegetables', 'Frozen Foods', 'Pooja Items'] },
-  { id: 'paan_shop', label: 'Paan shop', icon: '🍃', group: 'food', suggestedTags: ['Meetha Paan', 'Kolkata Paan', 'Mukhwas'] },
+  { id: 'restaurant', label: 'Restaurant', icon: 'utensils-crossed', group: 'food', suggestedTags: ['Biryani', 'Tandoor', 'Dosa', 'Thali', 'Lunch Buffet', 'Chaat'] },
+  { id: 'quick_service', label: 'Quick service & takeout', icon: 'sandwich', group: 'food', suggestedTags: ['Kathi Rolls', 'Vada Pav', 'Combo Meals', 'Late Night'] },
+  { id: 'sweets_mithai', label: 'Sweets & snacks', icon: 'candy', group: 'food', suggestedTags: ['Mithai', 'Kaju Katli', 'Namkeen', 'Diwali Boxes', 'Jalebi'] },
+  { id: 'bakery_cafe', label: 'Bakery & chai café', icon: 'coffee', group: 'food', suggestedTags: ['Masala Chai', 'Rusk', 'Puffs', 'Eggless Cakes'] },
+  { id: 'food_truck', label: 'Food truck', icon: 'truck', group: 'food', suggestedTags: ['Street Food', 'Pop-up', 'Events'] },
+  { id: 'catering', label: 'Catering', icon: 'chef-hat', group: 'food', suggestedTags: ['Wedding Catering', 'Party Orders', 'Office Lunch', 'Live Counters'] },
+  { id: 'tiffin_service', label: 'Tiffin service', icon: 'cooking-pot', group: 'food', suggestedTags: ['Daily Tiffin', 'Home Cooked', 'Weekly Plans', 'Student Plans'] },
+  { id: 'grocery_store', label: 'Grocery store', icon: 'shopping-cart', group: 'food', suggestedTags: ['Spices', 'Atta & Rice', 'Fresh Vegetables', 'Frozen Foods', 'Pooja Items'] },
+  { id: 'paan_shop', label: 'Paan shop', icon: 'leaf', group: 'food', suggestedTags: ['Meetha Paan', 'Kolkata Paan', 'Mukhwas'] },
 
   // Shopping
-  { id: 'clothing_store', label: 'Clothing & ethnic wear', icon: '👗', group: 'shopping', suggestedTags: ['Saree', 'Lehenga', 'Sherwani', 'Kurta', 'Kids Ethnic Wear'] },
-  { id: 'jewelry_store', label: 'Jewelry', icon: '💍', group: 'shopping', suggestedTags: ['22K Gold', 'Bridal Sets', 'Diamond', 'Silver', 'Custom Design'] },
-  { id: 'pooja_samagri', label: 'Pooja & spiritual goods', icon: '🕯️', group: 'shopping', suggestedTags: ['Idols', 'Agarbatti', 'Diyas', 'Puja Thali', 'Havan Samagri'] },
-  { id: 'books_media', label: 'Books, music & gifts', icon: '📚', group: 'shopping', suggestedTags: ['Hindi Books', 'Bollywood', 'Rakhi', 'Handicrafts'] },
-  { id: 'home_decor', label: 'Home & décor', icon: '🏺', group: 'shopping', suggestedTags: ['Brassware', 'Handloom', 'Rugs', 'Festival Décor'] },
+  { id: 'clothing_store', label: 'Clothing & ethnic wear', icon: 'shirt', group: 'shopping', suggestedTags: ['Saree', 'Lehenga', 'Sherwani', 'Kurta', 'Kids Ethnic Wear'] },
+  { id: 'jewelry_store', label: 'Jewelry', icon: 'gem', group: 'shopping', suggestedTags: ['22K Gold', 'Bridal Sets', 'Diamond', 'Silver', 'Custom Design'] },
+  { id: 'pooja_samagri', label: 'Pooja & spiritual goods', icon: 'flame', group: 'shopping', suggestedTags: ['Idols', 'Agarbatti', 'Diyas', 'Puja Thali', 'Havan Samagri'] },
+  { id: 'books_media', label: 'Books, music & gifts', icon: 'book-open', group: 'shopping', suggestedTags: ['Hindi Books', 'Bollywood', 'Rakhi', 'Handicrafts'] },
+  { id: 'home_decor', label: 'Home & décor', icon: 'lamp', group: 'shopping', suggestedTags: ['Brassware', 'Handloom', 'Rugs', 'Festival Décor'] },
 
   // Beauty & style
-  { id: 'beauty_salon', label: 'Beauty salon', icon: '💇', group: 'beauty', requiresLicense: true, suggestedTags: ['Eyebrow Threading', 'Bridal Makeup', 'Facials', 'Waxing'] },
-  { id: 'barber_shop', label: 'Barber shop', icon: '💈', group: 'beauty', requiresLicense: true, suggestedTags: ['Haircut', 'Beard Trim', 'Head Massage'] },
-  { id: 'mehndi_artist', label: 'Mehndi & henna artist', icon: '🎨', group: 'beauty', suggestedTags: ['Bridal Mehndi', 'Arabic Design', 'Organic Henna', 'Party Henna'] },
-  { id: 'tailoring', label: 'Tailoring & alterations', icon: '🪡', group: 'beauty', suggestedTags: ['Blouse Stitching', 'Saree Fall & Pico', 'Suit Alterations'] },
+  { id: 'beauty_salon', label: 'Beauty salon', icon: 'sparkles', group: 'beauty', requiresLicense: true, suggestedTags: ['Eyebrow Threading', 'Bridal Makeup', 'Facials', 'Waxing'] },
+  { id: 'barber_shop', label: 'Barber shop', icon: 'scissors', group: 'beauty', requiresLicense: true, suggestedTags: ['Haircut', 'Beard Trim', 'Head Massage'] },
+  { id: 'mehndi_artist', label: 'Mehndi & henna artist', icon: 'brush', group: 'beauty', suggestedTags: ['Bridal Mehndi', 'Arabic Design', 'Organic Henna', 'Party Henna'] },
+  { id: 'tailoring', label: 'Tailoring & alterations', icon: 'scissors-line-dashed', group: 'beauty', suggestedTags: ['Blouse Stitching', 'Saree Fall & Pico', 'Suit Alterations'] },
 
   // Weddings & events
-  { id: 'event_planner', label: 'Event & wedding planner', icon: '🎉', group: 'events', suggestedTags: ['Mandap Décor', 'Sangeet', 'Baraat', 'Reception'] },
-  { id: 'photography', label: 'Photography', icon: '📷', group: 'events', suggestedTags: ['Wedding Photography', 'Pre-Wedding Shoot', 'Portraits'] },
-  { id: 'videography', label: 'Videography', icon: '🎥', group: 'events', suggestedTags: ['Wedding Film', 'Highlights', 'Drone', 'Live Streaming'] },
-  { id: 'dj_music', label: 'DJ, dhol & music', icon: '🎵', group: 'events', suggestedTags: ['Bollywood DJ', 'Bhangra', 'Dhol Player', 'Live Band'] },
-  { id: 'banquet_hall', label: 'Banquet & party hall', icon: '🏛️', group: 'events', suggestedTags: ['Weddings', 'Birthdays', 'In-house Catering', 'Parking'] },
-  { id: 'dance_studio', label: 'Dance & music classes', icon: '💃', group: 'events', suggestedTags: ['Bharatanatyam', 'Kathak', 'Bollywood Dance', 'Tabla', 'Carnatic Vocal'] },
+  { id: 'event_planner', label: 'Event & wedding planner', icon: 'party-popper', group: 'events', suggestedTags: ['Mandap Décor', 'Sangeet', 'Baraat', 'Reception'] },
+  { id: 'photography', label: 'Photography', icon: 'camera', group: 'events', suggestedTags: ['Wedding Photography', 'Pre-Wedding Shoot', 'Portraits'] },
+  { id: 'videography', label: 'Videography', icon: 'video', group: 'events', suggestedTags: ['Wedding Film', 'Highlights', 'Drone', 'Live Streaming'] },
+  { id: 'dj_music', label: 'DJ, dhol & music', icon: 'music', group: 'events', suggestedTags: ['Bollywood DJ', 'Bhangra', 'Dhol Player', 'Live Band'] },
+  { id: 'banquet_hall', label: 'Banquet & party hall', icon: 'building-2', group: 'events', suggestedTags: ['Weddings', 'Birthdays', 'In-house Catering', 'Parking'] },
+  { id: 'dance_studio', label: 'Dance & music classes', icon: 'drum', group: 'events', suggestedTags: ['Bharatanatyam', 'Kathak', 'Bollywood Dance', 'Tabla', 'Carnatic Vocal'] },
 
   // Everyday services
-  { id: 'travel_agent', label: 'Travel agent', icon: '✈️', group: 'services', suggestedTags: ['Flights Home', 'Tour Packages', 'Group Travel'] },
-  { id: 'courier_delivery', label: 'Courier & parcels abroad', icon: '📦', group: 'services', suggestedTags: ['International Courier', 'Parcel Service', 'Door Pickup'] },
-  { id: 'money_transfer', label: 'Money transfer & forex', icon: '💱', group: 'services', suggestedTags: ['Send Money Home', 'Currency Exchange'] },
-  { id: 'laundry', label: 'Laundry & dry cleaning', icon: '🧺', group: 'services', suggestedTags: ['Saree Care', 'Dry Cleaning', 'Wash & Fold'] },
-  { id: 'auto_truck', label: 'Auto & truck repair', icon: '🚛', group: 'services', suggestedTags: ['Semi Truck Repair', 'Diesel Mechanic', 'DOT Inspection', 'Tires'] },
-  { id: 'fitness_yoga', label: 'Yoga & fitness', icon: '🧘', group: 'services', suggestedTags: ['Hatha Yoga', 'Pranayama', 'Meditation', 'Bhangra Fitness'] },
-  { id: 'other_service', label: 'Other business', icon: '🏪', group: 'services', suggestedTags: [] },
+  { id: 'travel_agent', label: 'Travel agent', icon: 'plane', group: 'services', suggestedTags: ['Flights Home', 'Tour Packages', 'Group Travel'] },
+  { id: 'courier_delivery', label: 'Courier & parcels abroad', icon: 'package', group: 'services', suggestedTags: ['International Courier', 'Parcel Service', 'Door Pickup'] },
+  { id: 'money_transfer', label: 'Money transfer & forex', icon: 'banknote', group: 'services', suggestedTags: ['Send Money Home', 'Currency Exchange'] },
+  { id: 'laundry', label: 'Laundry & dry cleaning', icon: 'washing-machine', group: 'services', suggestedTags: ['Saree Care', 'Dry Cleaning', 'Wash & Fold'] },
+  { id: 'auto_truck', label: 'Auto & truck repair', icon: 'wrench', group: 'services', suggestedTags: ['Semi Truck Repair', 'Diesel Mechanic', 'DOT Inspection', 'Tires'] },
+  { id: 'fitness_yoga', label: 'Yoga & fitness', icon: 'flower-2', group: 'services', suggestedTags: ['Hatha Yoga', 'Pranayama', 'Meditation', 'Bhangra Fitness'] },
+  { id: 'other_service', label: 'Other business', icon: 'store', group: 'services', suggestedTags: [] },
 
   // Faith & community
-  { id: 'temple', label: 'Temple', icon: '🛕', group: 'community', suggestedTags: ['Aarti', 'Prasadam', 'Festivals', 'Community Events'] },
-  { id: 'gurdwara', label: 'Gurdwara', icon: '🙏', group: 'community', suggestedTags: ['Langar', 'Kirtan', 'Sunday Diwan'] },
-  { id: 'pooja_services', label: 'Pandit & pooja services', icon: '🪔', group: 'community', suggestedTags: ['Griha Pravesh', 'Satyanarayan Katha', 'Havan', 'Wedding Priest'] },
-  { id: 'community_org', label: 'Community organization', icon: '🤝', group: 'community', suggestedTags: ['Cultural Events', 'Language Classes', 'Volunteering'] },
+  { id: 'temple', label: 'Temple', icon: 'landmark', group: 'community', suggestedTags: ['Aarti', 'Prasadam', 'Festivals', 'Community Events'] },
+  { id: 'gurdwara', label: 'Gurdwara', icon: 'hand-heart', group: 'community', suggestedTags: ['Langar', 'Kirtan', 'Sunday Diwan'] },
+  { id: 'pooja_services', label: 'Pandit & pooja services', icon: 'flame', group: 'community', suggestedTags: ['Griha Pravesh', 'Satyanarayan Katha', 'Havan', 'Wedding Priest'] },
+  { id: 'community_org', label: 'Community organization', icon: 'handshake', group: 'community', suggestedTags: ['Cultural Events', 'Language Classes', 'Volunteering'] },
 ] as const;
 
 /** Why a business is on Apneyy (stored in `indianConnection`). */
 export const CONNECTIONS: readonly Option[] = [
-  { id: 'owned', label: 'South Asian-owned', icon: '🧡' },
-  { id: 'food_products', label: 'South Asian food or products', icon: '🍛' },
-  { id: 'language', label: 'Speaks South Asian languages', icon: '🗣️' },
-  { id: 'culture', label: 'South Asian culture and vibe', icon: '🪔' },
-  { id: 'community', label: 'Serves the South Asian community', icon: '🤝' },
+  { id: 'owned', label: 'South Asian-owned', icon: 'heart' },
+  { id: 'food_products', label: 'South Asian food or products', icon: 'utensils' },
+  { id: 'language', label: 'Speaks South Asian languages', icon: 'languages' },
+  { id: 'culture', label: 'South Asian culture and vibe', icon: 'sparkles' },
+  { id: 'community', label: 'Serves the South Asian community', icon: 'handshake' },
 ] as const;
 
 export const CUISINES: readonly Option[] = [
@@ -110,13 +110,13 @@ export const CUISINES: readonly Option[] = [
 ] as const;
 
 export const DIETARY: readonly Option[] = [
-  { id: 'pure_veg', label: 'Pure vegetarian', icon: '🟢' },
-  { id: 'jain', label: 'Jain options', icon: '🙏' },
-  { id: 'halal', label: 'Halal', icon: '☪️' },
-  { id: 'vegan', label: 'Vegan options', icon: '🌱' },
-  { id: 'gluten_free', label: 'Gluten-free options', icon: '🌾' },
-  { id: 'eggless', label: 'Eggless', icon: '🥚' },
-  { id: 'no_onion_garlic', label: 'No onion or garlic', icon: '🧄' },
+  { id: 'pure_veg', label: 'Pure vegetarian', icon: 'salad' },
+  { id: 'jain', label: 'Jain options', icon: 'hand-heart' },
+  { id: 'halal', label: 'Halal', icon: 'badge-check' },
+  { id: 'vegan', label: 'Vegan options', icon: 'sprout' },
+  { id: 'gluten_free', label: 'Gluten-free options', icon: 'wheat-off' },
+  { id: 'eggless', label: 'Eggless', icon: 'egg-off' },
+  { id: 'no_onion_garlic', label: 'No onion or garlic', icon: 'ban' },
 ] as const;
 
 /** Ways customers can be served. Food services only show for food businesses. */

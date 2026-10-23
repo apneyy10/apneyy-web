@@ -67,7 +67,7 @@ export class SignupComponent {
     return p ? Math.max(1, s) : 0;
   });
   readonly strengthColor = computed(() => ['bg-line', 'bg-red-500', 'bg-amber-500', 'bg-lime-500', 'bg-green-600'][this.strength()]);
-  readonly strengthText = computed(() => ['At least 8 characters', 'Too weak', 'Okay', 'Good', 'Strong 💪'][this.strength()]);
+  readonly strengthText = computed(() => ['At least 8 characters', 'Too weak', 'Okay', 'Good', 'Strong'][this.strength()]);
 
   constructor() {
     inject(SeoService).set({ title: 'Create an account', description: 'Join Apneyy for free to save businesses and write reviews.', path: '/signup', noindex: true });
@@ -91,7 +91,7 @@ export class SignupComponent {
     this.error.set('');
     try {
       await fn();
-      this.toast.show(`Welcome to Apneyy, ${this.auth.firstName()}! 🎉`, 'success');
+      this.toast.show(`Welcome to Apneyy, ${this.auth.firstName()}!`, 'success');
       void this.router.navigateByUrl(this.next === '/' ? '/saved' : this.next);
     } catch (err) {
       this.error.set(authErrorMessage(err));

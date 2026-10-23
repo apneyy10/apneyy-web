@@ -8,12 +8,13 @@ import { SeoService } from '../../core/seo/seo.service';
 import { DirectoryEntry } from '../../core/models/directory.model';
 import { BusinessCardComponent } from '../../shared/business-card.component';
 import { CardSkeletonComponent } from '../../shared/card-skeleton.component';
+import { IconComponent } from '../../shared/icon.component';
 
 /** Saved businesses, drawn from the static directory, so viewing costs no Firestore reads. */
 @Component({
   selector: 'app-saved',
   standalone: true,
-  imports: [RouterLink, BusinessCardComponent, CardSkeletonComponent],
+  imports: [RouterLink, BusinessCardComponent, CardSkeletonComponent, IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="apneyy-container py-12">
@@ -34,7 +35,7 @@ import { CardSkeletonComponent } from '../../shared/card-skeleton.component';
           </div>
         } @else {
           <div class="animate-fade-up rounded-3xl border border-dashed border-line bg-white px-6 py-16 text-center">
-            <p class="text-5xl" aria-hidden="true">❤️</p>
+            <span class="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-brand-light text-3xl text-brand"><app-icon name="heart" /></span>
             <h2 class="mt-3 font-display text-2xl font-bold">Nothing saved yet</h2>
             <p class="mx-auto mt-2 max-w-sm text-ink-3">Tap the heart on any business to keep it here, like a list of your go-to places.</p>
             <a routerLink="/search" class="apneyy-btn-primary mt-6">Start exploring</a>

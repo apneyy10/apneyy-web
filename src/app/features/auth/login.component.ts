@@ -17,7 +17,7 @@ export function safeNext(next: unknown): string {
   imports: [FormsModule, RouterLink, AuthShellComponent, GoogleButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <app-auth-shell heading="Welcome back 🙏" sub="Sign in to see your saved places and write reviews.">
+    <app-auth-shell heading="Welcome back" sub="Sign in to see your saved places and write reviews.">
       <app-google-button [disabled]="busy()" (pressed)="google()" />
       <div class="my-6 flex items-center gap-3 text-xs text-ink-4"><span class="h-px flex-1 bg-line"></span>or with email<span class="h-px flex-1 bg-line"></span></div>
       <form (submit)="submit($event)" class="space-y-4" novalidate>
