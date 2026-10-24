@@ -26,7 +26,9 @@ interface Suggestion {
   standalone: true,
   imports: [FormsModule, IconComponent, PhotoComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'block relative' },
+  // Raise the whole box while suggestions are open so they sit above later siblings
+  // that form their own stacking contexts (animated or blurred sections).
+  host: { class: 'block relative', '[class.z-50]': 'showList()' },
   template: `
     <form (submit)="submit($event)" role="search" class="relative flex flex-col gap-2 rounded-[1.4rem] bg-white p-2 shadow-lift ring-1 ring-line sm:flex-row sm:items-center sm:gap-0"
       [class.!rounded-2xl]="size() === 'sm'" [class.!p-1.5]="size() === 'sm'" [class.!shadow-none]="size() === 'sm'">
