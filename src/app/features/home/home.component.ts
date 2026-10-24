@@ -32,7 +32,8 @@ const FAQ = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Hero -->
-    <section class="relative -mt-16 overflow-hidden pt-16">
+    <!-- overflow-x-clip (not hidden) so the search suggestions can drop below the hero. -->
+    <section class="relative z-10 -mt-16 overflow-x-clip pt-16">
       <div class="absolute inset-0 -z-10 bg-gradient-to-b from-[#fff3e4] via-[#fdf2ee] to-paper"></div>
       <div class="bg-motif absolute inset-0 -z-10 opacity-40 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)]"></div>
       <div class="pointer-events-none absolute inset-0 -z-10 hidden lg:block" aria-hidden="true">
@@ -57,7 +58,7 @@ const FAQ = [
         <p class="mx-auto mt-6 max-w-2xl animate-fade-up text-lg leading-relaxed text-ink-2 [animation-delay:160ms]">
           South Asian restaurants, grocers, salons, wedding pros, temples and everyday services across the US. Checked by our team, free for everyone.
         </p>
-        <div class="mx-auto mt-9 max-w-3xl animate-fade-up text-left [animation-delay:240ms]" data-tour="search">
+        <div class="relative z-30 mx-auto mt-9 max-w-3xl animate-fade-up text-left [animation-delay:240ms]" data-tour="search">
           <app-search-box />
         </div>
         <div class="mt-5 flex animate-fade-up flex-wrap justify-center gap-2 [animation-delay:320ms]">
