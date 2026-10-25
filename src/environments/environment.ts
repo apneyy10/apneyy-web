@@ -9,6 +9,6 @@ export const environment = {
     measurementId: 'G-ZYN8PDP1BQ',
   },
   /** Where owners list and manage their business (apneyy-crm). */
-  businessPortalUrl: 'https://main.d2121g68740x0x.amplifyapp.com/',
+  businessPortalUrl: 'https://business.apneyy.com/',
   supportEmail: 'hello@apneyy.com',
 };

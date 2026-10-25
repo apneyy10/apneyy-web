@@ -11,7 +11,7 @@
  * per business, category and city).
  *
  * Env:
- *   SITE_URL             Canonical origin, default https://www.apneyy.com
+ *   SITE_URL             Canonical origin, default https://apneyy.com
  *   APNEYY_SAMPLE_DATA=1 Use the bundled sample businesses (preview deployments only)
  *   APNEYY_STRICT_DATA=1 Fail the build when Firestore can't be read, and never fall
  *                        back to sample data. Turn on for production.
@@ -27,7 +27,7 @@ const OUT = join(ROOT, 'public', 'data');
 const PROJECT_ID = 'apneyy-5cb5d';
 const API_KEY = 'AIzaSyAB-RwsOZVsIBSPL1MY43yuT4YLyxQ405E';
 const BASE = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents`;
-const SITE_URL = (process.env.SITE_URL || 'https://www.apneyy.com').replace(/\/+$/, '');
+const SITE_URL = (process.env.SITE_URL || 'https://apneyy.com').replace(/\/+$/, '');
 const USE_SAMPLE = process.env.APNEYY_SAMPLE_DATA === '1';
 const STRICT = process.env.APNEYY_STRICT_DATA === '1';
 const PAGE_SIZE = 300;
