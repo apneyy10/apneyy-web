@@ -35,7 +35,7 @@ npm run images          # fetch stock photos listed in scripts/images/images.jso
 
 | Variable | Default | Meaning |
 | --- | --- | --- |
-| `SITE_URL` | `https://www.apneyy.com` | Origin used for canonical URLs and the sitemap |
+| `SITE_URL` | `https://apneyy.com` | Origin used for canonical URLs and the sitemap |
 | `APNEYY_STRICT_DATA` | unset | `1` = fail the build if Firestore can't be read, and never fall back to sample data. **Set this in production.** |
 | `APNEYY_SAMPLE_DATA` | unset | `1` = always use the sample listings (preview environments) |
 
