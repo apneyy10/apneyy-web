@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, PLATFORM_ID, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DataService } from '../../core/data/data.service';
@@ -58,6 +59,6 @@ export class SavedComponent {
 
   constructor() {
     inject(SeoService).set({ title: 'Saved businesses', description: 'Your saved businesses on Apneyy.', path: '/saved', noindex: true });
-    if (isPlatformBrowser(inject(PLATFORM_ID))) inject(DataService).directory().subscribe(d => this.entries.set(d?.entries ?? []));
+    if (isPlatformBrowser(inject(PLATFORM_ID))) inject(DataService).directory().pipe(takeUntilDestroyed()).subscribe(d => this.entries.set(d?.entries ?? []));
   }
 }

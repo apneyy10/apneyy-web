@@ -53,7 +53,14 @@ last build still open (the app fetches them live):
 | --- | --- | --- |
 | `</^[^.]+$/>` | `/index.csr.html` | 404 (Rewrite) |
 
-Keeping the site fresh: create an **incoming webhook** in Amplify and
+Live updates: in the browser the site listens for verified listings whose `updatedAt` is newer
+than the build (`core/data/live-directory.service.ts`), and each business page follows its own
+listing. Approvals, owner edits and take-downs show up without a refresh or a rebuild. This needs
+the `status + updatedAt` index from `firestore.indexes.json` in apneyy-admin to be deployed; without
+it the site quietly shows the last build.
+
+Rebuilds still matter for search engines (prerendered pages, sitemap) and to drop a listing that was
+taken down without being edited from the lists. Create an **incoming webhook** in Amplify and
 - give its URL to the admin portal (it triggers a rebuild after approving or editing a live listing), and
 - save it as the GitHub secret `AMPLIFY_WEBHOOK_URL` for the nightly rebuild in `.github/workflows/nightly-rebuild.yml`.
 

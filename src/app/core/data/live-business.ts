@@ -1,11 +1,7 @@
+import { Observable } from 'rxjs';
 import { firebase } from '../firebase/firebase';
-import { OpeningHours, PublicBusiness } from '../models/directory.model';
-import { slugify } from '../util/text.util';
-
-const str = (v: unknown) => (typeof v === 'string' ? v.trim() : '');
-const arr = (v: unknown) => (Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string' && !!x.trim()) : []);
-const num = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) ? v : null);
-const millis = (v: unknown) => (v && typeof (v as { toMillis?: () => number }).toMillis === 'function' ? (v as { toMillis: () => number }).toMillis() : 0);
+import { PublicBusiness } from '../models/directory.model';
+import { isShowable, toPublicBusiness } from './public-shape';
 
 /**
  * A listing approved after the last site build isn't in the static snapshot yet.
@@ -17,50 +13,39 @@ export async function fetchLiveBusiness(slug: string): Promise<PublicBusiness | 
   const snap = await fs.getDocs(q);
   const doc = snap.docs[0];
   if (!doc) return null;
-  const d = doc.data() as Record<string, any>;
-  const a = d['address'] ?? {};
-  const city = str(a.city);
-  const state = str(a.state).toUpperCase();
-  return {
-    id: doc.id,
-    slug,
-    name: str(d['name']),
-    nameNative: str(d['nameNative']),
-    category: str(d['category']) || 'other_service',
-    connections: arr(d['indianConnection']),
-    cuisines: arr(d['cuisines']),
-    dietary: arr(d['dietary']),
-    services: arr(d['services']),
-    amenities: arr(d['amenities']),
-    tags: arr(d['tags']),
-    languages: arr(d['languagesSpoken']),
-    description: str(d['description']),
-    phone: str(d['phone']),
-    phoneDisplay: str(d['phoneDisplay']) || str(d['phone']),
-    email: str(d['email']),
-    website: str(d['website']),
-    menuUrl: str(d['menuUrl']),
-    orderingLinks: d['orderingLinks'] ?? {},
-    socialLinks: d['socialLinks'] ?? {},
-    address: {
-      line1: str(a.line1),
-      line2: str(a.line2),
-      city,
-      state,
-      postalCode: str(a.postalCode),
-      timezone: str(a.timezone) || 'America/New_York',
-      lat: num(a.lat),
-      lng: num(a.lng),
-    },
-    openingHours: (d['openingHours'] as OpeningHours) ?? null,
-    priceRange: str(d['priceRange']),
-    paymentMethods: arr(d['paymentMethods']),
-    featuredItems: Array.isArray(d['featuredItems']) ? d['featuredItems'] : [],
-    photos: arr(d['photos']),
-    logo: str(d['logo']),
-    licenseNumber: str(d['licenseNumber']),
-    createdAt: millis(d['createdAt']),
-    updatedAt: millis(d['updatedAt']),
-    cityKey: `${state.toLowerCase()}/${slugify(city)}`,
-  };
+  const b = toPublicBusiness(doc.id, doc.data());
+  return isShowable(b) ? { ...b, slug } : null;
+}
+
+/**
+ * Live copy of one public listing (browser only). Emits null once it's taken
+ * down or deleted: the rules then refuse the read, since only verified
+ * listings are public. Other errors (offline) keep the last copy on screen.
+ */
+export function watchLiveBusiness(id: string): Observable<PublicBusiness | null> {
+  return new Observable<PublicBusiness | null>(sub => {
+    let stop: (() => void) | null = null;
+    let closed = false;
+    firebase()
+      .then(({ db, fs }) => {
+        if (closed) return;
+        stop = fs.onSnapshot(
+          fs.doc(db, 'businesses', id),
+          snap => {
+            const data = snap.exists() ? snap.data() : null;
+            const b = data && data['status'] === 'verified' ? toPublicBusiness(snap.id, data) : null;
+            sub.next(b && isShowable(b) ? b : null);
+          },
+          err => {
+            if ((err as { code?: string }).code === 'permission-denied') sub.next(null);
+            else console.warn('[apneyy] Live updates for this listing are off.', err);
+          }
+        );
+      })
+      .catch(err => console.warn('[apneyy] Live updates for this listing are off.', err));
+    return () => {
+      closed = true;
+      stop?.();
+    };
+  });
 }
