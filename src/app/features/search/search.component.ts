@@ -323,7 +323,7 @@ export class SearchComponent implements OnDestroy {
     });
 
     // The directory loads in the browser only; the prerendered page shows skeletons.
-    if (this.browser) this.data.directory().subscribe(d => this.entries.set(d?.entries ?? []));
+    if (this.browser) this.data.directory().pipe(takeUntilDestroyed()).subscribe(d => this.entries.set(d?.entries ?? []));
 
     // Infinite scroll: load the next page when "Show more" comes into view.
     effect(() => {

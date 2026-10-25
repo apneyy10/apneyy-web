@@ -277,6 +277,9 @@ function write(rel, data) {
 // Main
 // ---------------------------------------------------------------------------
 async function main() {
+  // Taken before reading, so the site's live listener (updatedAt > generatedAt)
+  // also catches edits made while this build was running.
+  const generatedAt = new Date().toISOString();
   let raw = [];
   let catalog = null;
   let source = 'firestore';
@@ -322,7 +325,6 @@ async function main() {
   rmSync(OUT, { recursive: true, force: true });
   mkdirSync(OUT, { recursive: true });
 
-  const generatedAt = new Date().toISOString();
   const sample = source === 'sample';
 
   // Cities

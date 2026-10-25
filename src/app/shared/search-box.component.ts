@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, computed, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, HostListener, computed, inject, input, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from '../core/data/category.service';
@@ -96,6 +97,7 @@ export class SearchBoxComponent {
   private readonly router = inject(Router);
   private readonly cats = inject(CategoryService);
   private readonly data = inject(DataService);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly host = inject(ElementRef<HTMLElement>);
 
   readonly q = signal('');
@@ -154,7 +156,7 @@ export class SearchBoxComponent {
     this.active.set(-1);
     if (!this.loaded) {
       this.loaded = true;
-      this.data.directory().subscribe(d => this.entries.set(d?.entries ?? []));
+      this.data.directory().pipe(takeUntilDestroyed(this.destroyRef)).subscribe(d => this.entries.set(d?.entries ?? []));
       this.data.cities().subscribe(c => this.cities.set(c?.cities ?? []));
     }
   }

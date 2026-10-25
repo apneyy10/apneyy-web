@@ -3,13 +3,13 @@ import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Observable, catchError, from, map, of, switchMap, tap } from 'rxjs';
+import { Observable, catchError, concat, distinctUntilChanged, from, map, of, switchMap, tap } from 'rxjs';
 import { DataService } from '../../core/data/data.service';
 import { CategoryService } from '../../core/data/category.service';
 import { SeoService } from '../../core/seo/seo.service';
 import { RecentService } from '../../core/member/recent.service';
 import { ToastService } from '../../core/ui/toast.service';
-import { fetchLiveBusiness } from '../../core/data/live-business';
+import { fetchLiveBusiness, watchLiveBusiness } from '../../core/data/live-business';
 import { DirectoryEntry, PublicBusiness } from '../../core/models/directory.model';
 import { AMENITIES, CONNECTIONS, CUISINES, DIETARY, ORDERING_PLATFORMS, SCHEMA_TYPES, SERVICES, labelFor } from '../../core/constants/listing-options.constant';
 import { WEEKDAYS, formatRanges, isOpenNow, statusLine, todayKey } from '../../core/util/hours.util';
@@ -318,14 +318,17 @@ export class BusinessComponent {
       switchMap(slug =>
         this.data.business(slug).pipe(
           switchMap((d): Observable<Loaded> => {
-            if (d) return of({ state: 'ok', business: d.business, similar: d.similar });
+            if (d) return of<Loaded>({ state: 'ok', business: d.business, similar: d.similar });
             // Approved after the last build? Try Firestore (browser only).
-            if (!this.browser) return of({ state: 'missing' });
+            if (!this.browser) return of<Loaded>({ state: 'missing' });
             return from(fetchLiveBusiness(slug)).pipe(
               map((b): Loaded => (b ? { state: 'ok', business: b, similar: [] } : { state: 'missing' })),
               catchError(() => of<Loaded>({ state: 'missing' }))
             );
-          })
+          }),
+          // Then follow the listing live, so an owner's edit or a take-down shows without a refresh.
+          switchMap(l => (l.state === 'ok' && this.browser ? concat(of(l), this.follow(l)) : of(l))),
+          distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
         )
       ),
       tap(l => this.onLoaded(l))
@@ -432,6 +435,13 @@ export class BusinessComponent {
     } catch {
       /* cancelled */
     }
+  }
+
+  /** Live updates after the first copy. Keeps the published URL, which the build may have made unique. */
+  private follow(l: Extract<Loaded, { state: 'ok' }>): Observable<Loaded> {
+    return watchLiveBusiness(l.business.id).pipe(
+      map((b): Loaded => (b ? { ...l, business: { ...b, slug: l.business.slug } } : { state: 'missing' }))
+    );
   }
 
   private onLoaded(l: Loaded): void {
