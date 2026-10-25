@@ -23,6 +23,17 @@ export const SEARCH_TOUR: TourStep[] = [
   { target: 'results', title: 'Tap to explore', body: 'Open any card for hours, menu highlights, directions and reviews. Tap the heart to save it.' },
 ];
 
+/** First visible element for a tour target; hidden or off-canvas copies (e.g. desktop-only filters, a closed drawer) are skipped. */
+export function findTourTarget(name: string): HTMLElement | null {
+  const els = Array.from(document.querySelectorAll<HTMLElement>(`[data-tour="${name}"]`));
+  return (
+    els.find(el => {
+      const r = el.getBoundingClientRect();
+      return r.width > 0 && r.height > 0 && r.right > 0 && r.left < window.innerWidth;
+    }) ?? null
+  );
+}
+
 /** Spotlight tours, shown once per browser per tour and replayable from the help menu. */
 @Injectable({ providedIn: 'root' })
 export class TourService {
@@ -34,7 +45,7 @@ export class TourService {
 
   start(steps: TourStep[]): void {
     if (!this.browser) return;
-    this.steps.set(steps.filter(s => !s.target || document.querySelector(`[data-tour="${s.target}"]`)));
+    this.steps.set(steps.filter(s => !s.target || findTourTarget(s.target)));
     this.index.set(0);
   }
 
