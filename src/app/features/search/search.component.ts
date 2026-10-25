@@ -93,7 +93,7 @@ function toParams(f: SearchFilters): Params {
           <p class="mr-auto text-sm text-ink-2" aria-live="polite">
             @if (loading()) { Loading businesses… } @else { <strong class="text-ink">{{ hits().length.toLocaleString() }}</strong> {{ hits().length === 1 ? 'result' : 'results' }} }
           </p>
-          <button type="button" class="apneyy-chip lg:hidden" (click)="sheet.set(true)">
+          <button type="button" class="apneyy-chip lg:hidden" data-tour="filters" (click)="sheet.set(true)">
             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" d="M4 6h16M7 12h10M10 18h4" /></svg>
             Filters @if (activeCount()) { <span class="grid h-5 min-w-5 place-items-center rounded-full bg-brand px-1 text-[11px] font-bold text-white">{{ activeCount() }}</span> }
           </button>
